@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #000, #1a1a1a);
+    color: #fff;
+}
+
+.contact {
+    padding: 80px 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+    color: gold;
+}
+
+p {
+    margin-bottom: 40px;
+    color: #ccc;
+}
+
+.contact-wrapper {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.contact-info {
+    flex: 1;
+    min-width: 250px;
+    text-align: left;
+}
+
+.contact-info h2 {
+    margin-bottom: 20px;
+    color: gold;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+form {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    margin-right: 100px;
+    margin-left:-400px;
+
+}
+
+input, textarea {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    background: #222;
+    color: #fff;
+}
+
+button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        flex-direction: column;
+    }
+}
+.home {
+    background-color: transparent;
+    border: 2px solid antiquewhite;
+    color: aliceblue;
+    font-family: "Saira Stencil", sans-serif;
+    position: absolute;
+    top: 20px;
+    text-decoration: none;
+    left: 20px;
+    padding: 5px 10px;
+}

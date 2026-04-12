@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/portfolio/portstyle.css">
+  <title>About Me</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+         color: aliceblue;
+  font-family: "Saira Stencil", sans-serif;
+    }
+
+    body {
+      background: #0f0f0f;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .about-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 50px;
+    }
+
+    .about-container {
+      max-width: 1100px;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .about-image img {
+      width: 300px;
+      background-attachment: fixed;
+      border-radius: 200px;
+     margin-bottom:100px;
+     margin-right:30px;
+   
+      align-items:center;
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .about-content {
+      max-width: 600px;
+    }
+
+    .about-content h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      color: gold;
+    text-align:center;
+    margin-right:150px;
+    }
+
+    .about-content h3 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      color: #ccc;
+    }
+
+    .about-content p {
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .skills span {
+      background: #1a1a1a;
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: 1px solid gold;
+      font-size: 14px;
+      margin-bottom:20px ;
+    }
+    .skills span:hover {
+      background: gold;
+      color: #000;
+      border-color: gold;
+    }
+
+    .btn {
+
+      margin-left: 150px;
+      text-align: center;
+      padding: 10px 20px;
+      background: gold;
+      color: #000;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .about-image img {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<section class="about-section">
+  <div class="about-container">
+  <a class="home" href="/portfolio/port.html">  &larr; Home</a>
+
+    <!-- Image -->
+    <div class="about-image">
+      <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1775071269/WhatsApp_Image_2026-04-02_at_12.23.56_AM_zavz5o.jpg" alt="Profile Image">
+    </div>
+
+    <!-- Content -->
+    <div class="about-content">
+      <h1>About Me</h1>
+      <h3>Hi, I'm Dayakar Manne 👋</h3>
+
+      <p>
+        I am a passionate Full Stack Developer with 1 years of experience in building
+        modern, responsive web applications. I specialize in React, Java, and backend systems.
+      </p>
+
+      <p>
+        I love creating user-friendly interfaces and scalable applications that solve real-world problems.
+      </p>
+  
+      <!-- Skills -->
+      <div class="skills">
+        <span>React</span>
+        <span>Java</span>
+        <span>Spring Boot</span>
+        <span>JavaScript</span>
+        <span>HTML & CSS</span>
+      </div>
+
+      <!-- Button -->
+      <a href="/resume/resume.html" class="btn">View Resume</a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
