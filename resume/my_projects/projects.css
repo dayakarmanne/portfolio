@@ -1,0 +1,112 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #0d0d0d;
+    color: #fff;
+}
+
+.projects {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.projects h2 {
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    color: gold;
+    letter-spacing: 1px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: #1a1a1a;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.4s ease;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.15);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.content {
+    padding: 20px;
+    text-align: left;
+}
+
+.content h3 {
+    color: gold;
+    margin-bottom: 10px;
+}
+
+.content p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.tech {
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+.buttons a {
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.code {
+    background: gold;
+    color: black;
+}
+
+.live {
+    border: 1px solid gold;
+    color: gold;
+}
+
+.buttons a:hover {
+    opacity: 0.8;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .projects {
+        padding: 40px 5%;
+    }
+}
+.home {
+    background-color: transparent;
+    border: 2px solid antiquewhite;
+    color: aliceblue;
+    font-family: "Saira Stencil", sans-serif;
+    position: absolute;
+    top: 20px;
+    text-decoration: none;
+    left: 20px;
+    padding: 5px 10px;
+   margin-left: 1300px;
+}

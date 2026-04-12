@@ -1,0 +1,84 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fuggles&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Saira+Stencil:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Estonia&family=Fuggles&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Saira+Stencil:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+h1{
+     font-family: "Saira Stencil", sans-serif;
+     
+     
+}
+h5{
+     font-family: "Saira Stencil", sans-serif;
+     
+}
+.m{
+    color:antiquewhite;
+}
+ .nav-link  {
+    color:darkorange;
+     font-family: "Saira Stencil", sans-serif;
+     text-shadow: 1px 1px 1px black;
+     
+}
+body{
+    background-image:url('https://res.cloudinary.com/daarlhq52/image/upload/v1775907449/Elegant_black_and_gold_design_estfkl.png');
+    background-size: cover;
+    background-attachment: fixed;
+
+    background-repeat: no-repeat;
+}
+.lead{
+   
+
+ font-family: "Estonia", cursive;
+  font-weight: 400px;
+ font-size:x-large;
+ color:antiquewhite;
+      text-align: center;
+      margin-top:200px;
+ 
+}
+.btn{
+    background-color:transparent;
+     border: 2px solid antiquewhite;
+    color: aliceblue;
+  font-family: "Saira Stencil", sans-serif;
+   
+   
+}
+.btn:hover{
+    background-color:antiquewhite;
+    color: black;
+    font-family: "Saira Stencil", sans-serif;
+}
+img{
+    border-radius:50%;
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border:2px solid gold ;
+    margin-top:150px;
+    margin-left: 50px;
+    position:sticky;
+}
+.name{
+     font-family: "Saira Stencil", sans-serif;
+     color:antiquewhite;
+     text-shadow: 1px 1px 1px black;
+     text-align: center;
+     margin-top:20px;
+}
+.home{
+    background-color:transparent;
+     border: 2px solid antiquewhite;
+    color: aliceblue;
+  font-family: "Saira Stencil", sans-serif;
+  position:absolute;
+  top:20px;
+  text-decoration: none;
+  left:20px;
+  padding:5px 10px;
+  margin-left:1300px;
+}

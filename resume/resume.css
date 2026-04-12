@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #0f172a;
+    color: #f1f5f9;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid gold;
+}
+
+header h1 {
+    font-size: 36px;
+    color: gold;
+}
+
+header h3 {
+    margin: 10px 0;
+    color: #cbd5f5;
+}
+
+.contact p {
+    margin: 5px 0;
+}
+
+.contact a {
+    color: gold;
+    text-decoration: none;
+}
+
+section {
+    margin: 25px 0;
+    padding: 15px;
+    background: #1e293b;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
+}
+
+h2 {
+    color: gold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 5px;
+}
+
+h4 {
+    margin-top: 10px;
+    color: #e2e8f0;
+}
+
+.date {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+ul {
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 28px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
+.home {
+    background-color: transparent;
+    border: 2px solid antiquewhite;
+    color: aliceblue;
+    font-family: "Saira Stencil", sans-serif;
+    position: sticky;
+    top: 20px;
+    text-decoration: none;
+    
+    padding: 5px 10px;
+}
