@@ -25,20 +25,30 @@ header {
 header h1 {
     font-size: 36px;
     color: gold;
+    font-weight: 700;
 }
 
 header h3 {
     margin: 10px 0;
     color: #cbd5f5;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .contact p {
     margin: 5px 0;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .contact a {
     color: gold;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.contact a:hover {
+    text-decoration: underline;
 }
 
 section {
@@ -54,17 +64,22 @@ h2 {
     margin-bottom: 10px;
     border-bottom: 1px solid #334155;
     padding-bottom: 5px;
+    font-weight: 700;
+    font-size: 22px;
 }
 
 h4 {
     margin-top: 10px;
     color: #e2e8f0;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .date {
     font-size: 14px;
     color: #94a3b8;
     margin-bottom: 10px;
+    font-weight: 500;
 }
 
 ul {
@@ -73,16 +88,118 @@ ul {
 
 li {
     margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    header h1 {
+        font-size: 32px;
+    }
+    
+    .container {
+        padding: 20px 15px;
+    }
+}
+
 @media (max-width: 768px) {
     header h1 {
         font-size: 28px;
     }
+    
+    header h3 {
+        font-size: 18px;
+    }
 
     .container {
         padding: 10px;
+        max-width: 100%;
+    }
+    
+    header {
+        padding: 15px 10px;
+    }
+    
+    section {
+        padding: 12px;
+        margin: 15px 0;
+    }
+    
+    h2 {
+        font-size: 20px;
+    }
+    
+    h4 {
+        font-size: 16px;
+    }
+    
+    p {
+        font-size: 14px;
+    }
+    
+    li {
+        font-size: 14px;
+    }
+    
+    .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .contact p {
+        margin: 5px 0;
+        word-break: break-word;
+    }
+    
+    .home {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 15px;
+        top: auto;
+        left: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 24px;
+    }
+    
+    header h3 {
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 8px;
+    }
+    
+    section {
+        padding: 10px;
+        margin: 10px 0;
+    }
+    
+    h2 {
+        font-size: 18px;
+        border-bottom: 1px solid #334155;
+    }
+    
+    h4 {
+        font-size: 14px;
+    }
+    
+    p, li {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+    
+    ul {
+        margin-left: 15px;
+    }
+    
+    .contact p {
+        font-size: 13px;
     }
 }
 .home {
