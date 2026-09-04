@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact // Dayakar Manne — Full Stack Architect</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Syne:wght@700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030308;
+      --cyan: #00f2fe;
+      --pink: #ff0055;
+      --amber: #ffd600;
+      --whatsapp: #25d366;
+      --linkedin: #0077b5;
+      --github: #ffffff;
+      --instagram: #e1306c;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 15%, #0c0d1c 0%, #030308 100%);
+    }
+
+    /* Ambient Spatial Lighting */
+    .ambient-glow {
+      position: fixed;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      filter: blur(150px);
+      opacity: 0.15;
+    }
+    .glow-1 { top: -100px; left: -100px; background: var(--cyan); }
+    .glow-2 { bottom: 50px; right: -100px; background: var(--pink); }
+
+    /* Canvas Layer */
+    #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none !important;
+    }
+
+    /* Fixed Transparent Header */
+    .nav-header {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 3rem);
+      max-width: 1300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2rem;
+      background: rgba(8, 10, 20, 0.75);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      z-index: 99999;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .nav-logo span {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links li {
+      display: inline-block;
+    }
+
+    .nav-link {
+      display: inline-block;
+      padding: 0.5rem 0.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      position: relative;
+      cursor: pointer;
+      transition: color 0.25s ease;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      box-shadow: 0 0 8px var(--cyan);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Main Container */
+    .contact-viewport {
+      position: relative;
+      z-index: 2;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 7.5rem 2rem 5rem 2rem;
+    }
+
+    .header-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-desc {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #94a3b8;
+      max-width: 650px;
+    }
+
+    /* 2-Column Contact Layout */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 3.5rem;
+      align-items: flex-start;
+    }
+
+    /* Left Column */
+    .channels-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .channels-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .channel-desc {
+      color: #94a3b8;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* Action Buttons */
+    .direct-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .btn-channel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.4rem;
+      border-radius: 14px;
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      transition: all 0.25s ease;
+    }
+
+    /* Email Button */
+    .btn-email {
+      background: rgba(255, 0, 85, 0.08);
+      border: 1px solid rgba(255, 0, 85, 0.4);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 0, 85, 0.12);
+    }
+    .btn-email:hover {
+      background: rgba(255, 0, 85, 0.2);
+      border-color: var(--pink);
+      box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* WhatsApp Button */
+    .btn-whatsapp {
+      background: rgba(37, 211, 102, 0.08);
+      border: 1px solid rgba(37, 211, 102, 0.4);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.12);
+    }
+    .btn-whatsapp:hover {
+      background: rgba(37, 211, 102, 0.2);
+      border-color: var(--whatsapp);
+      box-shadow: 0 0 30px rgba(37, 211, 102, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* GitHub Button */
+    .btn-github {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
+    }
+    .btn-github:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #fff;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* LinkedIn Button */
+    .btn-linkedin {
+      background: rgba(0, 119, 181, 0.08);
+      border: 1px solid rgba(0, 119, 181, 0.4);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0, 119, 181, 0.12);
+    }
+    .btn-linkedin:hover {
+      background: rgba(0, 119, 181, 0.22);
+      border-color: #00a0dc;
+      box-shadow: 0 0 30px rgba(0, 119, 181, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Instagram Button */
+    .btn-instagram {
+      background: rgba(225, 48, 108, 0.08);
+      border: 1px solid rgba(225, 48, 108, 0.4);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(225, 48, 108, 0.12);
+    }
+    .btn-instagram:hover {
+      background: rgba(225, 48, 108, 0.22);
+      border-color: var(--instagram);
+      box-shadow: 0 0 30px rgba(225, 48, 108, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .channel-left {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .channel-icon {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Right Column: Form */
+    .form-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 2.5rem;
+    }
+
+    .form-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: rgba(8, 10, 20, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0.9rem 1.2rem;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1.1rem;
+      border: none;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--cyan), #00a8ff);
+      color: #030308;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .btn-submit:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 45px rgba(0, 242, 254, 0.7);
+    }
+
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        gap: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <canvas id="fx-canvas"></canvas>
+
+  <header class="nav-header">
+    <a href="index.html" class="nav-logo">
+      <span>//</span> DAYAKAR.DEV
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">HOME</a></li>
+        <li><a href="about.html" class="nav-link">ABOUT</a></li>
+        <li><a href="/project.html" class="nav-link">MY PROJECTS</a></li>
+        <li><a href="/contact.html" class="nav-link active">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="contact-viewport">
+    
+    <div class="header-block">
+      <div class="section-eyebrow">
+        <span class="pulse-dot"></span>
+        <span>// DIRECT TRANSMISSION NODES</span>
+      </div>
+      <h1 class="page-title">INITIATE CONTACT</h1>
+      <p class="page-desc">
+        Connect directly via email, send a real-time message over WhatsApp, review open-source repositories on GitHub, or submit an inquiry through the gateway below.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      
+      <div class="channels-card">
+        <div>
+          <h2 class="channels-title">Direct Links</h2>
+          <p class="channel-desc" style="margin-top: 0.5rem;">
+            Fastest avenues for technical discussions, architecture consulting, and project collaborations:
+          </p>
+        </div>
+
+        <div class="direct-buttons">
+          <a href="mailto:dayakarmanne7997@gmail.com" class="btn-channel btn-email">
+            <div class="channel-left">
+              <svg class="channel-icon" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <span>EMAIL ME</span>
+            </div>
+            <span>&nearr;</span>
+          </a>
+
+          <a href="https://wa.me/917780709442" target="_blank" rel="noopener noreferrer" class="btn-channel btn-whatsapp">
+            <div class="channel-left">
+              <svg class="channel-icon" viewBox="0 0 24 24">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2m.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24m4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.24-.75-.67-1.25-1.49-1.4-1.74-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.12.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.12-.23-.19-.48-.31z"/>
+              </svg>
+              <span>WHATSAPP ME</span>
+            </div>
+            <span>&nearr;</span>
+          </a>
+
+          <a href="https://github.com/dayakarmanne" target="_blank" rel="noopener noreferrer" class="btn-channel btn-github">
+            <div class="channel-left">
+              <svg class="channel-icon" viewBox="0 0 24 24">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              <span>GITHUB // REPOSITORIES</span>
+            </div>
+            <span>&nearr;</span>
+          </a>
+
+          <a href="https://linkedin.com/in/dayakarmanne" target="_blank" rel="noopener noreferrer" class="btn-channel btn-linkedin">
+            <div class="channel-left">
+              <svg class="channel-icon" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+              </svg>
+              <span>LINKEDIN // NETWORK</span>
+            </div>
+            <span>&nearr;</span>
+          </a>
+
+          <a href="https://instagram.com/dayakarmanne" target="_blank" rel="noopener noreferrer" class="btn-channel btn-instagram">
+            <div class="channel-left">
+              <svg class="channel-icon" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>INSTAGRAM // VISUAL PORTFOLIO</span>
+            </div>
+            <span>&nearr;</span>
+          </a>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1.5rem; font-family: var(--font-mono); font-size: 0.8rem; color: #64748b;">
+          <div>// LOCATION: HYDERABAD, INDIA</div>
+          <div style="margin-top: 0.4rem;">// RESPONSE TIME: &lt; 12 HOURS</div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Send Transmission</h2>
+        <form action="https://formspree.io/f/xeaqkboy" method="POST">
+          
+          <div class="form-group">
+            <label class="form-label" for="name">Your Name</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="e.g. John Doe" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Your Email Address</label>
+            <input type="email" id="email" name="_replyto" class="form-input" placeholder="e.g. john@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject / Project Scope</label>
+            <input type="text" id="subject" name="subject" class="form-input" placeholder="e.g. System Architecture Collaboration" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message Details</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Outline your requirements, timeline, or inquiry..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>SUBMIT TRANSMISSION</span>
+            <span>&rarr;</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // Lightweight Background Constellation Canvas
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let w, h;
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 70; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 1.5 + 0.5,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        alpha: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.x += s.vx;
+        s.y += s.vy;
+
+        if (s.x < 0) s.x = w;
+        if (s.x > w) s.x = 0;
+        if (s.y < 0) s.y = h;
+        if (s.y > h) s.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 242, 254, ${s.alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(renderCanvas);
+    }
+    renderCanvas();
+  </script>
+</body>
+</html>

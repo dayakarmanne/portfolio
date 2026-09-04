@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About // Dayakar Manne — Full Stack Architect</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Syne:wght@700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #030308;
+      --cyan: #00f2fe;
+      --pink: #ff0055;
+      --amber: #ffd600;
+      --border: rgba(255, 255, 255, 0.08);
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: none !important;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 15%, #0c0d1c 0%, #030308 100%);
+    }
+
+    /* Ambient Spatial Lighting */
+    .ambient-glow {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      filter: blur(140px);
+      opacity: 0.15;
+    }
+    .glow-1 { top: -100px; left: -100px; background: var(--cyan); }
+    .glow-2 { bottom: 50px; right: -100px; background: var(--pink); }
+
+    /* Canvas Layer */
+    #fx-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none !important;
+    }
+
+    /* Custom Cursor */
+    #custom-cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none !important;
+      z-index: 999999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    #cursor-follower {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid rgba(0, 242, 254, 0.4);
+      border-radius: 50%;
+      pointer-events: none !important;
+      z-index: 999998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    }
+
+    /* Floating Navbar */
+    .nav-header {
+      position: fixed;
+      top: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 4rem);
+      max-width: 1350px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.2rem;
+      background: rgba(8, 10, 20, 0.65);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      z-index: 99990;
+      pointer-events: auto !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo span {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.75rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: inline-block;
+      padding: 0.4rem 0.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link.active,
+    .nav-link:hover {
+      color: #fff;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      box-shadow: 0 0 8px var(--cyan);
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-link.active::after,
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Main Container */
+    .about-viewport {
+      position: relative;
+      z-index: 3;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 8.5rem 2rem 6rem 2rem;
+    }
+
+    /* Section Headings */
+    .header-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+    }
+
+    /* Glass Panels */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 2.2rem;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      transform: translateY(-4px);
+    }
+
+    /* 2-Column Hero Profile Bio */
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.6fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .bio-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+      font-weight: 300;
+    }
+
+    .bio-text p:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+
+    .bio-highlight {
+      color: #fff;
+      font-weight: 600;
+      text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+    }
+
+    .quick-stats {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      gap: 1.5rem;
+    }
+
+    .stat-row {
+      border-left: 2px solid var(--cyan);
+      padding-left: 1.25rem;
+    }
+
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #8fa0b5;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Sub-section headings */
+    .sub-heading {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sub-heading span {
+      color: var(--pink);
+    }
+
+    /* Skills Grid */
+    .skills-section {
+      margin-bottom: 4rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card h4 {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tags-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tag-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: #e2e8f0;
+      transition: all 0.25s ease;
+    }
+
+    .tag-badge:hover {
+      background: rgba(0, 242, 254, 0.1);
+      border-color: var(--cyan);
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+    }
+
+    /* Certifications & Milestones Grid */
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1.8rem;
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 5px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 8px var(--pink);
+    }
+
+    .timeline-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #fff;
+    }
+
+    .timeline-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #94a3b8;
+    }
+
+    /* Footer Marquee Banner */
+    .footer-action {
+      text-align: center;
+      padding: 3rem 0 1rem 0;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 1.1rem 2.4rem;
+      background: linear-gradient(90deg, var(--cyan), #00a8ff);
+      color: #030308;
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 45px rgba(0, 242, 254, 0.7);
+    }
+
+    @media (max-width: 992px) {
+      .bio-grid, .dual-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Interactive Constellation Canvas -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Custom Trailing Follower -->
+  <div id="custom-cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- Transparent Header -->
+  <header class="nav-header">
+    <a href="index.html#hero" class="nav-logo interactive">
+      <span>//</span>> >  Dayakar.in
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/index.html" class="nav-link interactive">HOME</a></li>
+        <li><a href="/about.html" class="nav-link active interactive">ABOUT</a></li>
+        <li><a href="/project.html" class="nav-link interactive">MY PROJECTS</a></li>
+        <li><a href="/contact.html" class="nav-link interactive">CONTACT</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content Structure -->
+  <main class="about-viewport">
+    
+    <!-- Header Title Block -->
+    <div class="header-block">
+      <div class="section-eyebrow">
+        <span class="pulse-dot"></span>
+        <span>// BACKGROUND & TECHNICAL CAPABILITIES</span>
+      </div>
+      <h1 class="page-title">ENGINEERING THE SYSTEM LAYER</h1>
+    </div>
+
+    <!-- 1. Bio Overview & Key Stats -->
+    <div class="bio-grid">
+      <div class="glass-card">
+        <div class="bio-text">
+          <p>
+            I am <span class="bio-highlight">Dayakar Manne</span>, a Full Stack Developer and Software Engineer dedicated to designing scalable distributed systems, secure cloud interfaces, and interactive web graphics.
+          </p>
+          <p>
+            My background combines comprehensive software lifecycle execution—ranging from architectural specification, API design, and schema engineering to fluid WebGL micro-interactions. With a focus on performance profiling and clean abstractions, I build resilient systems that handle concurrency while keeping client-side interfaces fluid and responsive.
+          </p>
+        </div>
+      </div>
+
+      <div class="glass-card quick-stats">
+        <div class="stat-row">
+          <div class="stat-val">B.Tech</div>
+          <div class="stat-lbl">Computer Science & Engineering</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-val">Full Stack</div>
+          <div class="stat-lbl">Distributed Systems & UI</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-val">0-Latency</div>
+          <div class="stat-lbl">Performance First Architecture</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Technical Skills Matrix -->
+    <section class="skills-section">
+      <h2 class="sub-heading"><span>//</span> TECHNICAL MATRIX &amp; TOOLING</h2>
+      
+      <div class="skills-grid">
+        <!-- Programming Languages -->
+        <div class="glass-card skill-card interactive">
+          <h4>[ Languages ]</h4>
+          <div class="tags-list">
+            <span class="tag-badge">Java</span>
+            <span class="tag-badge">Python</span>
+            <span class="tag-badge">JavaScript (ES6+)</span>
+            <span class="tag-badge">Perl</span>
+            <span class="tag-badge">SQL</span>
+            <span class="tag-badge">HTML5 / CSS3</span>
+          </div>
+        </div>
+
+        <!-- Frontend Frameworks & Graphics -->
+        <div class="glass-card skill-card interactive">
+          <h4>[ Frontend &amp; 3D ]</h4>
+          <div class="tags-list">
+            <span class="tag-badge">React.js</span>
+            <span class="tag-badge">Three.js</span>
+            <span class="tag-badge">WebGL</span>
+            <span class="tag-badge">TailwindCSS</span>
+            <span class="tag-badge">Responsive UI</span>
+            <span class="tag-badge">State Management</span>
+          </div>
+        </div>
+
+        <!-- Backend & Systems -->
+        <div class="glass-card skill-card interactive">
+          <h4>[ Backend &amp; Architecture ]</h4>
+          <div class="tags-list">
+            <span class="tag-badge">Node.js</span>
+            <span class="tag-badge">Spring Boot</span>
+            <span class="tag-badge">RESTful Web Services</span>
+            <span class="tag-badge">Microservices</span>
+            <span class="tag-badge">Distributed Systems</span>
+          </div>
+        </div>
+
+        <!-- Infrastructure & Databases -->
+        <div class="glass-card skill-card interactive">
+          <h4>[ Infra &amp; Datastores ]</h4>
+          <div class="tags-list">
+            <span class="tag-badge">MySQL</span>
+            <span class="tag-badge">Linux CLI / Bash</span>
+            <span class="tag-badge">Git / GitHub</span>
+            <span class="tag-badge">CI/CD Pipelines</span>
+            <span class="tag-badge">Blockchain Architectures</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Certifications & Academic Milestones -->
+    <div class="dual-grid">
+      <!-- Certifications & Recognitions -->
+      <div class="glass-card">
+        <h2 class="sub-heading"><span>//</span> RECOGNITION &amp; CERTS</h2>
+        
+        <div class="timeline-item">
+          <div class="timeline-title">Cybersecurity National Certification</div>
+          <div class="timeline-meta">NATIONAL LEVEL ACCREDITATION</div>
+          <div class="timeline-desc">
+            Deep dive into vulnerability assessment, network penetration testing defense, data integrity protocols, and zero-trust implementations.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-title">Data Science Professional Certification</div>
+          <div class="timeline-meta">ANALYTICS &amp; MACHINE LEARNING</div>
+          <div class="timeline-desc">
+            Comprehensive foundations in predictive modeling, data clustering algorithms, regression metrics, and dataset classification pipelines.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-title">Hackathon Champion &amp; Debugging Victor</div>
+          <div class="timeline-meta">GIET HACKATHON &amp; CODE DEBUGGING</div>
+          <div class="timeline-desc">
+            Awarded 1st place in algorithmic problem-solving, rapid technical prototyping, and runtime anomaly debugging under competitive constraints.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-title">National Art Competition Recognition</div>
+          <div class="timeline-meta">CREATIVE DIRECTION &amp; VISUAL ARTS</div>
+          <div class="timeline-desc">
+            National level award winner in visual arts—bringing creative intuition directly into 3D web geometry and interactive design engineering.
+          </div>
+        </div>
+      </div>
+
+      <!-- Education & Academics -->
+      <div class="glass-card">
+        <h2 class="sub-heading"><span>//</span> ACADEMIC FOUNDATIONS</h2>
+        
+        <div class="timeline-item">
+          <div class="timeline-title">Bachelor of Technology (B.Tech)</div>
+          <div class="timeline-meta">COMPUTER SCIENCE &amp; ENGINEERING // GIET (JNTUH)</div>
+          <div class="timeline-desc">
+            Rigorous focus on data structures, algorithms, operating system internals, object-oriented software engineering, database management systems, and distributed networks.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-title">Intermediate Studies (MPC)</div>
+          <div class="timeline-meta">ROYAL JUNIOR COLLEGE</div>
+          <div class="timeline-desc">
+            Intensive coursework in advanced analytical mathematics, physics mechanics, and algorithmic logic.
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-title">Secondary School Certificate (SSC)</div>
+          <div class="timeline-meta">VIDYA VIKAS HIGH SCHOOL</div>
+          <div class="timeline-desc">
+            Foundational schooling with honors in computer fundamentals, applied sciences, and mathematics.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to action button -->
+    <div class="footer-action">
+      <a href="index.html#contact" class="action-btn interactive">
+        <span>INITIATE PROJECT COLLABORATION</span>
+        <span>&rarr;</span>
+      </a>
+    </div>
+
+  </main>
+
+  <script>
+    /* 1. CUSTOM CURSOR TRACKING & HOVER EXPANSION */
+    const cursorDot = document.getElementById('custom-cursor');
+    const cursorFollower = document.getElementById('cursor-follower');
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let follower = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      cursorDot.style.left = `${e.clientX}px`;
+      cursorDot.style.top = `${e.clientY}px`;
+    });
+
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('.interactive, .nav-link, .nav-logo, .tag-badge, .action-btn')) {
+        cursorFollower.style.width = '65px';
+        cursorFollower.style.height = '65px';
+        cursorFollower.style.borderColor = 'rgba(255, 0, 85, 0.8)';
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest('.interactive, .nav-link, .nav-logo, .tag-badge, .action-btn')) {
+        cursorFollower.style.width = '44px';
+        cursorFollower.style.height = '44px';
+        cursorFollower.style.borderColor = 'rgba(0, 242, 254, 0.4)';
+      }
+    });
+
+    /* 2. BACKGROUND CANVAS PARTICLES (Matches Index Theme) */
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let w, h;
+
+    function resizeCanvas() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    for (let i = 0; i < 90; i++) {
+      stars.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        size: Math.random() * 1.8 + 0.4,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.6 + 0.2
+      });
+    }
+
+    function renderBackground() {
+      // Smooth Follower Lerp
+      follower.x += (mouse.x - follower.x) * 0.16;
+      follower.y += (mouse.y - follower.y) * 0.16;
+      cursorFollower.style.left = `${follower.x}px`;
+      cursorFollower.style.top = `${follower.y}px`;
+
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        s.x += s.vx;
+        s.y += s.vy;
+
+        if (s.x < 0) s.x = w;
+        if (s.x > w) s.x = 0;
+        if (s.y < 0) s.y = h;
+        if (s.y > h) s.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 242, 254, ${s.alpha})`;
+        ctx.fill();
+
+        // Node connections near cursor
+        const dCursor = Math.hypot(mouse.x - s.x, mouse.y - s.y);
+        if (dCursor < 120) {
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 242, 254, ${(1 - dCursor / 120) * 0.3})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+
+      requestAnimationFrame(renderBackground);
+    }
+    requestAnimationFrame(renderBackground);
+  </script>
+</body>
+</html>

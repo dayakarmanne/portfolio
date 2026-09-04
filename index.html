@@ -1,120 +1,879 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dayakar Manne</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-  <link rel="stylesheet" href="portstyle.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dayakar Manne — Creative Technologist & Full Stack Architect</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Syne:wght@700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="script" href="/script.js" > 
+  
+  <!-- Three.js for 3D WebGL Scene -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #030308;
+      --cyan: #00f2fe;
+      --pink: #ff0055;
+      --amber: #ffd600;
+      --violet: #7928ca;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --font-body: 'Space Grotesk', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      cursor: none !important;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: #fff;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      /* Perspective kept OFF body to prevent breaking z-index on fixed headers */
+    }
+
+    /* WebGL Canvas Background */
+    #webgl-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none !important;
+    }
+
+    /* Custom Magnetic Cursor */
+    #custom-cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      pointer-events: none !important;
+      z-index: 999999;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 15px var(--cyan), 0 0 30px var(--cyan);
+      transition: width 0.2s, height 0.2s, background 0.2s;
+    }
+
+    #cursor-follower {
+      position: fixed;
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid rgba(0, 242, 254, 0.4);
+      border-radius: 50%;
+      pointer-events: none !important;
+      z-index: 999998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    }
+
+    /* =========================================================
+       FIXED TRANSPARENT GLASS HEADER
+       ========================================================= */
+    .nav-header {
+      position: fixed;
+      top: 1.75rem;
+      left: 50%;
+      transform: translateX(-50%) translateZ(1000px);
+      width: calc(100% - 4rem);
+      max-width: 1350px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.2rem;
+      background: rgba(8, 10, 20, 0.65);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      z-index: 99990;
+      pointer-events: auto !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), inset 0 0 15px rgba(255, 255, 255, 0.03);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nav-header:hover {
+      border-color: rgba(0, 242, 254, 0.3);
+      box-shadow: 0 20px 45px rgba(0, 242, 254, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: auto;
+    }
+
+    .nav-logo span {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.75rem;
+      list-style: none;
+    }
+
+    .nav-links li {
+      display: inline-block;
+    }
+
+    .nav-link {
+      display: inline-block;
+      padding: 0.4rem 0.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #94a3b8;
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      position: relative;
+      pointer-events: auto !important;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      box-shadow: 0 0 8px var(--cyan);
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* =========================================================
+       HERO ARENA & 3D STAGE
+       ========================================================= */
+    #hero {
+      position: relative;
+      z-index: 3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 7.5rem 2rem 2.5rem 2rem;
+      perspective: 1600px; /* Isolated perspective */
+      pointer-events: auto;
+    }
+
+    .hero-stage {
+      width: 100%;
+      max-width: 1350px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      align-items: center;
+      gap: 4rem;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Left Elements */
+    .eyebrow-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      animation: enterHUD 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0.9rem;
+      background: rgba(0, 242, 254, 0.06);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 100px;
+      color: var(--cyan);
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.18);
+    }
+
+    .pulsar {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 10px var(--cyan);
+      animation: pulseGlow 1.8s infinite ease-in-out;
+    }
+
+    /* Name Arena */
+    .name-arena {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 2.5rem;
+      row-gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      transform-style: preserve-3d;
+    }
+
+    .word-cluster {
+      display: inline-flex;
+      transform-style: preserve-3d;
+    }
+
+    .char {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 8.5vw, 7.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: #fff;
+      transform-style: preserve-3d;
+      will-change: transform, opacity, filter;
+      text-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 214, 0, 0.25);
+      transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 0.3s ease;
+    }
+
+    .char:hover {
+      color: var(--cyan);
+      text-shadow: 0 0 30px var(--cyan), 0 0 70px rgba(0, 242, 254, 0.8);
+    }
+
+    .role-intro {
+      font-size: 1.2rem;
+      line-height: 1.75;
+      color: #94a3b8;
+      max-width: 620px;
+    }
+
+    /* Right Column: 3D Holographic Card */
+    .profile-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      perspective: 1200px;
+    }
+
+    .hologram-card {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 4/5;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1.25rem;
+      transform-style: preserve-3d;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.1);
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .hologram-card:hover {
+      border-color: rgba(0, 242, 254, 0.5);
+      box-shadow: 0 50px 90px rgba(0, 0, 0, 0.9), 0 0 60px rgba(0, 242, 254, 0.3);
+    }
+
+    .card-inner-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      transform: translateZ(40px);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: contrast(1.1) brightness(0.95);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
+    }
+
+    .hologram-card:hover .profile-photo {
+      transform: scale(1.08);
+      filter: contrast(1.15) brightness(1.05);
+    }
+
+    .scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      box-shadow: 0 0 15px var(--cyan);
+      animation: scanSweep 4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .reticle {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-color: var(--cyan);
+      border-style: solid;
+      pointer-events: none;
+      z-index: 6;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .ret-tl { top: 16px; left: 16px; border-width: 2px 0 0 2px; }
+    .ret-tr { top: 16px; right: 16px; border-width: 2px 2px 0 0; }
+    .ret-bl { bottom: 16px; left: 16px; border-width: 0 0 2px 2px; }
+    .ret-br { bottom: 16px; right: 16px; border-width: 0 2px 2px 0; }
+
+    .hologram-card:hover .reticle {
+      border-color: var(--pink);
+      box-shadow: 0 0 10px var(--pink);
+    }
+
+    /* Marquee Runway */
+    .marquee-runway {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 1.35rem 0;
+      background: rgba(255, 255, 255, 0.015);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 14px;
+      mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+      opacity: 0;
+      animation: enterMarquee 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.2s;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+
+    .marquee-batch {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding-right: 3rem;
+      font-size: 1.25rem;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
+    .highlight-cyan {
+      color: #fff;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 25px rgba(0, 242, 254, 0.6);
+    }
+
+    .highlight-pink {
+      color: #fff;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff, var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 25px rgba(255, 0, 85, 0.6);
+    }
+
+    .cyber-star {
+      color: var(--amber);
+      font-size: 0.85rem;
+      animation: spinGlyph 8s linear infinite;
+      display: inline-block;
+    }
+
+    /* Keyframes */
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.7); }
+    }
+
+    @keyframes scanSweep {
+      0% { top: 0%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    @keyframes enterHUD {
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes enterMarquee {
+      0% { opacity: 0; transform: translateY(50px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spinGlyph {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 992px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .profile-wrap { order: -1; }
+      .hologram-card { max-width: 300px; }
+      .nav-links { gap: 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
-  <nav class="navbar navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-      <h1 class="navbar-brand">My <span style="color:bisque">Portfolio</span></h1>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-        aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-        aria-labelledby="offcanvasDarkNavbarLabel">
-        <div class="offcanvas-header">
-          <h5 class="h5">
-            <marquee class="m" scrollamount="">welcome to my portfolio</marquee>
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-            aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="/portfolio/about.html">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/portfolio/contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/portfolio/resume/my_projects/projects.html">My Projects</a>
-            </li>
-          </ul>
+  <!-- Custom Cursor Elements -->
+  <div id="custom-cursor"></div>
+  <div id="cursor-follower"></div>
 
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class="body-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-8">
+  <!-- Three.js 3D Viewport -->
+  <canvas id="webgl-canvas"></canvas>
 
-          <p class="lead"> I am a self-driven and passionate tech enthusiast with expertise in web development and
-            DevOps. My skill set includes frontend development, Linux, AWS, Git, and containerizing applications. I am
-            proficient in building CI/CD pipelines using tools like Jenkins, ensuring smooth and efficient deployment
-            processes. I thrive on solving complex problems, learning new technologies, and delivering high-quality
-            solutions.
+  <!-- Transparent Floating Glass Nav Header -->
+  <header class="nav-header">
+    <a href="#hero" class="nav-logo interactive">
+      <span>//</span>  > > Dayakar.in
+    </a>
+    <nav>
+  <ul class="nav-links">
+  <li><a href="index.html" class="nav-link interactive">HOME</a></li>
+  <li><a href="about.html" class="nav-link interactive">ABOUT</a></li>
+  <li><a href="project.html" class="nav-link interactive">MY PROJECTS</a></li>
+  <li><a href="/contact.html" class="nav-link interactive">CONTACT</a></li>
+</ul>
+</nav>
+  </header>
 
-            I aspire to obtain a challenging position in your organization in the IT field, where I can contribute to
-            its growth and success while fostering my own professional development. I am eager to utilize my technical
-            skills and dedication to support the organization’s goals and overall welfare.
+  <!-- Hero Section -->
+  <main id="hero">
+    <div class="hero-stage" id="heroStage">
+      
+      <div class="hero-grid">
+        
+        <!-- Left Column -->
+        <div class="hero-left">
+          <div class="eyebrow-container">
+            <div class="status-pill">
+              <span class="pulsar"></span>
+              <span>FULL STACK SYSTEM ARCHITECT</span>
+            </div>
+            <div style="color: #64748b;">// HYD &bull; WORLDWIDE</div>
+          </div>
 
+          <!-- Shatter 3D Falling Typography Arena -->
+          <div class="name-arena">
+            <div class="word-cluster" id="clusterFirst"></div>
+            <div class="word-cluster" id="clusterLast"></div>
+          </div>
+
+          <p class="role-intro">
+            Orchestrating fault-tolerant backends with ultra-fluid, GPU-accelerated interfaces. Crafting zero-latency distributed software paired with emotive, modern web experiences.
           </p>
-          <center> <a href="/portfolio/resume/my_projects/projects.html" class="btn">View My Projects</a>
         </div>
 
-        <div class="col-4">
-          <img
-            src="https://res.cloudinary.com/daarlhq52/image/upload/v1775071269/WhatsApp_Image_2026-04-02_at_12.23.56_AM_zavz5o.jpg">
-          <h1 class="name">Dayakar <span style="color:goldenrod">Manne</span></h1>
+        <!-- Right Column: 3D Holographic Profile Matrix -->
+        <div class="profile-wrap">
+          <div class="hologram-card interactive" id="holoCard">
+            <div class="scan-line"></div>
+            <div class="reticle ret-tl"></div>
+            <div class="reticle ret-tr"></div>
+            <div class="reticle ret-bl"></div>
+            <div class="reticle ret-br"></div>
+            
+            <div class="card-inner-frame">
+              <!-- Replace this image URL with your portrait path (e.g. src="profile.jpg") -->
+              <img 
+                src="https://res.cloudinary.com/daarlhq52/image/upload/v1775071269/WhatsApp_Image_2026-04-02_at_12.23.56_AM_zavz5o.jpg" 
+                alt="Dayakar Manne" 
+                class="profile-photo"
+              />
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Infinite Kinetic Marquee -->
+      <div class="marquee-runway" id="marqueeRunway">
+        <div class="marquee-track" id="marqueeTrack">
+          <div class="marquee-batch">
+            <span>I architect <span class="highlight-cyan">high-performance interfaces</span></span>
+            <span class="cyber-star">✦</span>
+            <span>resilient distributed backends</span>
+            <span class="cyber-star">✦</span>
+            <span>bridging <span class="highlight-pink">fluid UI engineering</span> with scalable infrastructure</span>
+            <span class="cyber-star">✦</span>
+          </div>
+          <div class="marquee-batch" aria-hidden="true">
+            <span>I architect <span class="highlight-cyan">high-performance interfaces</span></span>
+            <span class="cyber-star">✦</span>
+            <span>resilient distributed backends</span>
+            <span class="cyber-star">✦</span>
+            <span>bridging <span class="highlight-pink">fluid UI engineering</span> with scalable infrastructure</span>
+            <span class="cyber-star">✦</span>
+          </div>
         </div>
       </div>
 
-
-
-
-
-
     </div>
+  </main>
 
+  <script>
+    /* =========================================================================
+       1. WEB AUDIO HARMONIC SYNTHESIS (Zero External Audio Assets)
+       ========================================================================= */
+    const SoundFx = {
+      ctx: null,
+      init() {
+        if (!this.ctx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) this.ctx = new AudioContext();
+        }
+      },
+      playTone(freq = 440, duration = 0.1, type = 'sine') {
+        if (!this.ctx) return;
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(50, this.ctx.currentTime + duration);
+          gain.gain.setValueAtTime(0.1, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch(e) {}
+      }
+    };
+    window.addEventListener('pointerdown', () => SoundFx.init(), { once: true });
 
+    /* =========================================================================
+       2. THREE.JS 3D SCENE: PERSPECTIVE GRID & FLOATING GEOMETRIC ARTIFACTS
+       ========================================================================= */
+    const scene3D = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 24;
 
+    const renderer = new THREE.WebGLRenderer({
+      canvas: document.getElementById('webgl-canvas'),
+      alpha: true,
+      antialias: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
+    // 3D Grid Floor
+    const gridHelper = new THREE.GridHelper(120, 50, 0x00f2fe, 0x11162b);
+    gridHelper.position.y = -14;
+    gridHelper.position.z = -8;
+    scene3D.add(gridHelper);
 
+    // Floating Prisms
+    const geomGroup = new THREE.Group();
+    const geometries = [
+      new THREE.IcosahedronGeometry(1.6, 0),
+      new THREE.TorusGeometry(1.4, 0.4, 16, 50),
+      new THREE.OctahedronGeometry(1.8, 0)
+    ];
 
+    const materialWire = new THREE.MeshBasicMaterial({
+      color: 0x00f2fe,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.25
+    });
 
+    const meshes = [];
+    for(let i = 0; i < 9; i++) {
+      const g = geometries[i % geometries.length];
+      const m = new THREE.Mesh(g, materialWire);
+      m.position.set(
+        (Math.random() - 0.5) * 55,
+        (Math.random() - 0.5) * 30,
+        (Math.random() - 0.5) * 20 - 5
+      );
+      m.rotSpeedX = (Math.random() - 0.5) * 0.02;
+      m.rotSpeedY = (Math.random() - 0.5) * 0.02;
+      geomGroup.add(m);
+      meshes.push(m);
+    }
+    scene3D.add(geomGroup);
 
+    // Star Particles
+    const starCount = 350;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    for(let i = 0; i < starCount * 3; i += 3) {
+      starPos[i] = (Math.random() - 0.5) * 80;
+      starPos[i+1] = (Math.random() - 0.5) * 60;
+      starPos[i+2] = (Math.random() - 0.5) * 40;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    const starMat = new THREE.PointsMaterial({
+      color: 0x00f2fe,
+      size: 0.16,
+      transparent: true,
+      opacity: 0.6
+    });
+    const starField = new THREE.Points(starGeo, starMat);
+    scene3D.add(starField);
 
+    /* =========================================================================
+       3. PER-CHARACTER 6-DOF FALLING PHYSICS
+       ========================================================================= */
+    const characters = [];
 
+    function mountWord(containerId, text, startDelay) {
+      const container = document.getElementById(containerId);
+      
+      text.split('').forEach((letter, i) => {
+        const span = document.createElement('span');
+        span.className = 'char interactive';
+        span.textContent = letter;
+        container.appendChild(span);
 
+        const charObj = {
+          el: span,
+          currX: (Math.random() - 0.5) * 650,
+          currY: -450 - Math.random() * 250,
+          currZ: 300 + Math.random() * 300,
+          rotX: (Math.random() - 0.5) * 280,
+          rotY: (Math.random() - 0.5) * 280,
+          rotZ: (Math.random() - 0.5) * 180,
+          targetX: 0, targetY: 0, targetZ: 0,
+          targetRotX: 0, targetRotY: 0, targetRotZ: 0,
+          scale: 2.2,
+          opacity: 0,
+          blur: 14,
+          delay: startDelay + (i * 0.08),
+          settled: false,
+          orbitPhase: Math.random() * Math.PI * 2
+        };
 
+        span.addEventListener('pointerenter', () => {
+          SoundFx.playTone(550 + (i * 70), 0.12, 'triangle');
+          charObj.currZ += 80;
+          charObj.rotY += (Math.random() - 0.5) * 50;
+        });
 
+        characters.push(charObj);
+      });
+    }
 
+    mountWord('clusterFirst', 'DAYAKAR', 0.25);
+    mountWord('clusterLast', 'MANNE', 0.7);
 
+    /* =========================================================================
+       4. INTERACTIVE MOUSE TRACKING & EVENT DELEGATION
+       ========================================================================= */
+    let mouse = {
+      x: 0, y: 0,
+      targetX: 0, targetY: 0,
+      pixelX: window.innerWidth / 2,
+      pixelY: window.innerHeight / 2
+    };
 
+    const cursorDot = document.getElementById('custom-cursor');
+    const cursorFollower = document.getElementById('cursor-follower');
+    let followerX = window.innerWidth / 2;
+    let followerY = window.innerHeight / 2;
 
+    window.addEventListener('mousemove', (e) => {
+      mouse.pixelX = e.clientX;
+      mouse.pixelY = e.clientY;
+      mouse.targetX = ((e.clientX / window.innerWidth) - 0.5) * 2;
+      mouse.targetY = ((e.clientY / window.innerHeight) - 0.5) * 2;
 
+      cursorDot.style.left = `${e.clientX}px`;
+      cursorDot.style.top = `${e.clientY}px`;
+    });
 
+    // Delegated Hover Logic: Ensures Nav Links & Dynamically Created Chars Trigger Follower Expansion
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest('.interactive, .nav-link, .nav-logo')) {
+        cursorFollower.style.width = '65px';
+        cursorFollower.style.height = '65px';
+        cursorFollower.style.borderColor = 'rgba(255, 0, 85, 0.8)';
+      }
+    });
 
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest('.interactive, .nav-link, .nav-logo')) {
+        cursorFollower.style.width = '44px';
+        cursorFollower.style.height = '44px';
+        cursorFollower.style.borderColor = 'rgba(0, 242, 254, 0.4)';
+      }
+    });
 
+    /* =========================================================================
+       5. UNIFIED 60 FPS SIMULATION ENGINE
+       ========================================================================= */
+    const heroStage = document.getElementById('heroStage');
+    const holoCard = document.getElementById('holoCard');
+    const track = document.getElementById('marqueeTrack');
+    let marqueePos = 0;
+    let isHoveringMarquee = false;
 
+    document.getElementById('marqueeRunway').addEventListener('pointerenter', () => isHoveringMarquee = true);
+    document.getElementById('marqueeRunway').addEventListener('pointerleave', () => isHoveringMarquee = false);
 
+    const startTime = performance.now();
 
+    function renderLoop(time) {
+      const elapsed = (time - startTime) / 1000;
 
+      // Mouse LERP
+      mouse.x += (mouse.targetX - mouse.x) * 0.08;
+      mouse.y += (mouse.targetY - mouse.y) * 0.08;
 
+      followerX += (mouse.pixelX - followerX) * 0.16;
+      followerY += (mouse.pixelY - followerY) * 0.16;
+      cursorFollower.style.left = `${followerX}px`;
+      cursorFollower.style.top = `${followerY}px`;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"></script>
+      // 3D Three.js Camera & Geometry Orbit
+      camera.position.x = mouse.x * 3;
+      camera.position.y = -mouse.y * 2.5;
+      camera.lookAt(0, 0, 0);
+
+      meshes.forEach(m => {
+        m.rotation.x += m.rotSpeedX;
+        m.rotation.y += m.rotSpeedY;
+      });
+      starField.rotation.y = elapsed * 0.03;
+      renderer.render(scene3D, camera);
+
+      // DOM Scene Gyroscopic Tilt
+      heroStage.style.transform = `rotateY(${mouse.x * 12}deg) rotateX(${-mouse.y * 10}deg)`;
+      holoCard.style.transform = `rotateY(${mouse.x * 18}deg) rotateX(${-mouse.y * 15}deg) translateZ(30px)`;
+
+      // Letter Physics Loop
+      characters.forEach(p => {
+        if (elapsed < p.delay) {
+          p.el.style.opacity = 0;
+          return;
+        }
+
+        const distToFloor = Math.abs(p.currY - p.targetY) + Math.abs(p.currZ - p.targetZ);
+        if (distToFloor < 1.5 && !p.settled) {
+          p.settled = true;
+          p.blur = 0;
+          SoundFx.playTone(380 + Math.random() * 80, 0.06, 'sine');
+        }
+
+        if (!p.settled) {
+          p.currX += (p.targetX - p.currX) * 0.09;
+          p.currY += (p.targetY - p.currY) * 0.09;
+          p.currZ += (p.targetZ - p.currZ) * 0.09;
+          p.rotX += (p.targetRotX - p.rotX) * 0.09;
+          p.rotY += (p.targetRotY - p.rotY) * 0.09;
+          p.rotZ += (p.targetRotZ - p.rotZ) * 0.09;
+          p.scale += (1 - p.scale) * 0.1;
+          p.opacity += (1 - p.opacity) * 0.12;
+          p.blur += (0 - p.blur) * 0.1;
+        } else {
+          // Continuous Gyroscopic Float
+          const phase = elapsed * 1.5 + p.orbitPhase;
+          const idlePitch = Math.sin(phase) * 8;
+          const idleYaw = Math.cos(phase * 0.8) * 10;
+          const idleZ = Math.sin(phase * 1.2) * 16;
+
+          // Repulsion
+          const rect = p.el.getBoundingClientRect();
+          const charCenterX = rect.left + rect.width / 2;
+          const charCenterY = rect.top + rect.height / 2;
+          const dx = mouse.pixelX - charCenterX;
+          const dy = mouse.pixelY - charCenterY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          let pushX = 0, pushY = 0, pushZ = 0;
+          if (dist < 140) {
+            const force = (140 - dist) / 140;
+            pushX = -(dx / dist) * force * 35;
+            pushY = -(dy / dist) * force * 35;
+            pushZ = force * 60;
+          }
+
+          p.currX += ((p.targetX + pushX) - p.currX) * 0.12;
+          p.currY += ((p.targetY + pushY) - p.currY) * 0.12;
+          p.currZ += ((p.targetZ + idleZ + pushZ) - p.currZ) * 0.12;
+          p.rotX += ((p.targetRotX + idlePitch) - p.rotX) * 0.12;
+          p.rotY += ((p.targetRotY + idleYaw) - p.rotY) * 0.12;
+        }
+
+        p.el.style.opacity = p.opacity;
+        p.el.style.filter = p.blur > 0.1 ? `blur(${p.blur}px)` : 'none';
+        p.el.style.transform = `
+          translate3d(${p.currX.toFixed(2)}px, ${p.currY.toFixed(2)}px, ${p.currZ.toFixed(2)}px)
+          rotateX(${p.rotX.toFixed(2)}deg)
+          rotateY(${p.rotY.toFixed(2)}deg)
+          rotateZ(${p.rotZ.toFixed(2)}deg)
+          scale(${p.scale.toFixed(3)})
+        `;
+      });
+
+      // Marquee Engine
+      if (!isHoveringMarquee) {
+        marqueePos -= 1.35;
+      }
+      const halfWidth = track.scrollWidth / 2;
+      if (Math.abs(marqueePos) >= halfWidth) marqueePos = 0;
+      track.style.transform = `translateX(${marqueePos}px)`;
+
+      requestAnimationFrame(renderLoop);
+    }
+
+    requestAnimationFrame(renderLoop);
+  </script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-  integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-  integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-
 </html>
