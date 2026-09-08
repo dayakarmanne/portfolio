@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#07070a" />
+  <meta name="description" content="Dayakar Manne — Full Stack Developer & Software Engineer. Interactive 3D portfolio." />
+  <title>Dayakar Manne — Full Stack Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Linked CSS file -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="loader"><div class="loaderInner"><div class="loaderMark">DAYAKAR<span>.</span>IN</div><div class="loaderLine"><i></i></div><div class="mono" style="font-size:10px;color:#777">INITIALIZING 3D EXPERIENCE</div></div></div>
+<canvas id="threeStage"></canvas>
+<div class="cursorDot"></div><div class="cursorRing"></div>
+
+<canvas id="bg"></canvas><div class="noise"></div>
+<nav><div class="wrap navin"><a class="logo" href="#home">DAYAKAR<span>.</span>IN</a><div class="links"><a href="#about">ABOUT</a><a href="#projects">PROJECTS</a><a href="#stack">STACK</a><a href="#contact">CONTACT</a></div><button class="menu" onclick="document.querySelector('.links').style.display=document.querySelector('.links').style.display==='flex'?'none':'flex'">MENU</button></div></nav>
+
+<main>
+<section id="home" class="hero"><div class="wrap heroGrid">
+  <div class="reveal">
+    <div class="eyebrow mono">Welcome</div>
+    <h1>FULL STACK<br><em>SYSTEM</em><br>ARCHITECT.</h1>
+    <p>Designing scalable distributed systems, secure cloud interfaces, and interactive web experiences — bridging resilient backends with fluid, modern UI.</p>
+    <div class="actions"><a class="btn primary" href="#projects">Explore projects ↗</a><a class="btn" href="mailto:dayakarmanne7997@gmail.com">Start a project</a><a class="btn" href="#contact">Contact ↗</a></div>
+    <div class="statbar"><div class="stat"><strong>04</strong><span>Featured builds</span></div><div class="stat"><strong>97.4%</strong><span>ML model accuracy</span></div><div class="stat"><strong>&lt;12h</strong><span>Response time</span></div></div>
+  </div>
+</div></section>
+
+<section id="about"><div class="wrap"><div class="sectionHead reveal"><h2>ENGINEERING<br>THE SYSTEM LAYER.</h2><p>I’m Dayakar Manne, a Full Stack Developer and Software Engineer focused on performance-first architecture, API design, schema engineering and WebGL micro-interactions.</p></div>
+<div class="aboutGrid"><div class="reveal">
+<div class="aboutPhoto" style="width:100%;max-width:420px;aspect-ratio:4/5;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:rgba(255,255,255,.035);margin-bottom:28px;display:grid;place-items:center">
+  <img src="about-photo.jpg" alt="Replace with Dayakar's original photo" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=&quot;text-align:center;padding:30px;color:#777;font:12px DM Mono&quot;>REPLACE<br><br>about-photo.jpg<br><br>WITH YOUR ORIGINAL IMAGE</div>'">
+</div>
+<div class="bigcopy">B.Tech in Computer Science & Engineering.</div><div class="smallcopy">My work spans the full software lifecycle — from architectural specification and distributed systems to responsive client interfaces. I care about clean abstractions, concurrency, performance profiling and experiences that feel alive.</div></div>
+<div class="timeline reveal"><div class="item"><small>EDUCATION</small><h3>B.Tech — Computer Science & Engineering</h3><p>GIET (JNTUH), with focus on data structures, algorithms, operating systems, OOP, databases and distributed networks.</p></div><div class="item"><small>RECOGNITION</small><h3>Hackathon Champion & Debugging Victor</h3><p>1st place in algorithmic problem-solving, rapid prototyping and runtime anomaly debugging.</p></div><div class="item"><small>CREATIVE DIRECTION</small><h3>National Art Competition Recognition</h3><p>Visual arts recognition brought into 3D web geometry and interactive design engineering.</p></div></div></div></div></section>
+
+<section id="projects"><div class="wrap"><div class="sectionHead reveal"><h2>FEATURED<br>PROJECTS.</h2><p>Production-oriented builds spanning blockchain, machine learning, cybersecurity, eCommerce and real-time ordering.</p></div>
+<div class="grid">
+<article class="card reveal"><div class="num">01 / 04 — BLOCKCHAIN • KNN • XGBOOST</div><h3>Blockchain E-Tender Management System</h3><p>Decentralized procurement platform using smart contracts to reduce bidding fraud and vendor tampering, with KNN/XGBoost risk scoring and anomaly detection.</p><div class="tags"><span class="tag">Solidity</span><span class="tag">Ethereum</span><span class="tag">KNN</span><span class="tag">XGBoost</span><span class="tag">Python</span><span class="tag">React</span></div></article>
+<article class="card reveal"><div class="num">02 / 04 — ML • CYBERSECURITY</div><h3>Phishing Website Detection System</h3><p>Security pipeline analyzing lexical URL properties, domain entropy, HTML structure and SSL validity to detect malicious targets before compromise.</p><div class="tags"><span class="tag">Python</span><span class="tag">Scikit-Learn</span><span class="tag">XGBoost</span><span class="tag">Flask</span></div></article>
+<article class="card reveal"><div class="num">03 / 04 — FULL STACK • GLASSMORPHISM</div><h3>Transparent Glass Jewellery Portal</h3><p>Luxury ordering storefront with frosted glass UI, product customizers, real-time metal pricing and multi-step checkout workflow.</p><div class="tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MySQL</span><span class="tag">REST APIs</span></div></article>
+<article class="card reveal"><div class="num">04 / 04 — FULL STACK • REAL-TIME COMMERCE</div><h3>Food Ordering & Delivery Application</h3><p>Responsive ordering platform with menu discovery, cart state, active order dispatch, restaurant dashboards and real-time status updates.</p><div class="tags"><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Node/Express</span><span class="tag">MySQL</span></div></article>
+</div></div></section>
+
+<section id="stack"><div class="wrap"><div class="sectionHead reveal"><h2>TECHNICAL<br>MATRIX.</h2><p>A practical stack for building reliable systems and expressive digital products.</p></div><div class="skills">
+<div class="skillbox reveal"><b>Languages</b><p>Java · Python · JavaScript ES6+ · Perl · SQL · HTML5 · CSS3</p></div>
+<div class="skillbox reveal"><b>Frontend & 3D</b><p>React.js · Three.js · WebGL · TailwindCSS · Responsive UI · State Management</p></div>
+<div class="skillbox reveal"><b>Backend & Architecture</b><p>Node.js · Spring Boot · RESTful Web Services · Microservices · Distributed Systems</p></div>
+<div class="skillbox reveal"><b>Infra & Data</b><p>MySQL · Linux CLI / Bash · Git / GitHub · CI/CD Pipelines · Blockchain Architectures</p></div>
+<div class="skillbox reveal"><b>Certifications</b><p>Cybersecurity National Certification · Data Science Professional Certification</p></div>
+<div class="skillbox reveal"><b>Architecture Philosophy</b><p>Performance first · Resilient systems · Clean abstractions · Fluid interfaces · Secure by design</p></div>
+</div></div></section>
+
+<section id="contact"><div class="wrap"><div class="contact reveal"><div class="eyebrow mono">// DIRECT TRANSMISSION NODES</div><h2>LET’S BUILD<br>SOMETHING <span style="color:var(--accent)">EXTRAORDINARY.</span></h2><p>Open for technical discussions, architecture consulting, software projects and creative digital collaborations.</p><div class="actions"><a class="btn primary" href="mailto:dayakarmanne7997@gmail.com">Email me ↗</a><a class="btn" href="https://wa.me/" target="_blank" rel="noopener">WhatsApp ↗</a><a class="btn" href="https://github.com/" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></div></section>
+</main>
+<footer class="wrap"><span>© 2026 Dayakar Manne</span><span class="mono">HYDERABAD, INDIA · DAYAKAR.IN</span></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<!-- Linked JavaScript file -->
+<script src="script.js"></script>
+</body>
+</html>
