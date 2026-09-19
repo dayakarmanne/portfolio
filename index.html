@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070b14">
+  <meta name="description" content="Dayakar Manne — Software Developer building thoughtful, responsive digital experiences and full-stack applications.">
+  <title>Dayakar Manne — Software Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Professional Preloader Styles */
+    #pageLoader {
+      position: fixed;
+      inset: 0;
+      background: #070b14;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+    }
+    #pageLoader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .loader-brand {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 500;
+      color: #f8fafc;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+    .loader-brand span {
+      color: #38bdf8;
+    }
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 2px solid rgba(56, 189, 248, 0.15);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spinLoader 1s linear infinite;
+    }
+    @keyframes spinLoader {
+      to { transform: rotate(360deg); }
+    }
+    .loader-subtext {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Profile Image Integration Styles */
+    .hero-profile-container {
+      position: relative;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 4 / 5;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.25);
+      background: #0f141c;
+      margin: 0 auto;
+    }
+    .hero-profile-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hero-profile-container:hover img {
+      transform: scale(1.04);
+    }
+    .about-profile-wrap {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(56, 189, 248, 0.5);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+      margin: 2rem auto 0;
+    }
+    .about-profile-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <!-- PRELOADER -->
+  <div id="pageLoader">
+    <div class="loader-content">
+      <div class="loader-brand">Dayakar.<span>in</span></div>
+      <div class="loader-spinner"></div>
+      <div class="loader-subtext">Initializing Portfolio</div>
+    </div>
+  </div>
+
+  <div class="progress" id="progress"></div>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Dayakar Manne home"><span class="brand-mark">DM</span><span>Dayakar Manne</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#education">Education</a><a class="nav-link" href="#contact">Contact</a>
+    </nav>
+    <a class="header-cta" href="#contact">Let’s talk <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="pulse"></span> SOFTWARE DEVELOPER · OPEN TO OPPORTUNITIES</div>
+        <p class="hello">Hello, I’m</p>
+        <h1>Dayakar<br><span>Manne.</span></h1>
+        <h2>Software Developer <b>×</b> Full-Stack Builder</h2>
+        <p class="hero-intro">I build responsive, reliable digital experiences — from polished interfaces to thoughtful APIs and data-driven applications.</p>
+        <div class="hero-actions">
+          <a class="button button-primary magnetic" href="#projects">Explore projects <span>↗</span></a>
+          <a class="button button-ghost" href="#contact">Get in touch <span>→</span></a>
+        </div>
+        <div class="social-row">
+          <a href="https://github.com/dayakarmanne" target="_blank" rel="noreferrer" aria-label="GitHub">GH <span>↗</span></a>
+          <a href="https://linkedin.com/in/dayakarmanne" target="_blank" rel="noreferrer" aria-label="LinkedIn">in <span>↗</span></a>
+          <a href="https://dayakar.in" target="_blank" rel="noreferrer" aria-label="Website">WEB <span>↗</span></a>
+          <span class="social-note">Hyderabad, India</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal" aria-label="Dayakar Manne profile photograph">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div class="hero-profile-container">
+          <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1789822405/WhatsApp_Image_2026-09-19_at_6.22.56_PM_qxy6wy.jpg" alt="Dayakar Manne Profile Photo">
+        </div>
+        <div class="tech-float tech-react"><span>⚛</span> React</div>
+        <div class="tech-float tech-js"><span>JS</span> JavaScript</div>
+        <div class="tech-float tech-db"><span>▤</span> Databases</div>
+        <div class="visual-index">01 <span>—</span> 04</div>
+      </div>
+      <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span class="scroll-line"></span><span>01 / INTRODUCTION</span></div>
+    </section>
+
+    <section class="about section-wrap section-pad" id="about">
+      <div class="section-kicker">01 / ABOUT</div>
+      <div class="about-layout">
+        <div class="about-heading reveal"><p class="small-label">A LITTLE ABOUT ME</p><h2>Curious by nature.<br><span>Developer by craft.</span></h2>
+          <div class="about-profile-wrap">
+            <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1789822405/WhatsApp_Image_2026-09-19_at_6.22.56_PM_qxy6wy.jpg" alt="Dayakar Manne Portrait">
+          </div>
+        </div>
+        <div class="about-body reveal">
+          <p class="lead">I’m Dayakar Manne, a software developer who enjoys turning ideas into clean, useful digital products.</p>
+          <p>My interests span frontend engineering, backend services, database design, and interactive user experiences. I care about responsive layouts, readable code, practical problem-solving, and continuously improving the details that make software feel right.</p>
+          <p>Based in Hyderabad, India — open to technical discussions, software development roles, and collaborative projects.</p>
+          <div class="stat-row">
+            <div><strong>01</strong><span>Curiosity-first<br>mindset</span></div>
+            <div><strong>04</strong><span>Featured<br>projects</span></div>
+            <div><strong>∞</strong><span>Ideas to<br>keep building</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills section-wrap section-pad" id="skills">
+      <div class="section-heading reveal"><div><div class="section-kicker">02 / TOOLKIT</div><h2>My technical <span>matrix.</span></h2></div><p>Tools and technologies I use to design, build, connect, and refine software.</p></div>
+      <div class="skill-grid">
+        <article class="skill-card reveal"><div class="skill-number">01</div><div class="skill-icon">⌘</div><h3>Frontend Engineering</h3><p>Responsive interfaces with a focus on usability, consistency, and interaction.</p><div class="chips"><span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span><span>React</span><span>Tailwind CSS</span><span>Responsive UI</span></div></article>
+        <article class="skill-card reveal"><div class="skill-number">02</div><div class="skill-icon">⟨/⟩</div><h3>Backend & APIs</h3><p>Application logic, service integration, and structured API development.</p><div class="chips"><span>Java</span><span>Python</span><span>Node.js</span><span>Express</span><span>Spring Boot</span><span>REST APIs</span><span>Perl</span></div></article>
+        <article class="skill-card reveal"><div class="skill-number">03</div><div class="skill-icon">▤</div><h3>Databases & Cloud</h3><p>Data modeling and persistence for relational, document, and real-time applications.</p><div class="chips"><span>MongoDB</span><span>Firebase</span><span>Realtime DB</span><span>Firestore</span><span>MySQL</span><span>Schema Design</span></div></article>
+        <article class="skill-card reveal"><div class="skill-number">04</div><div class="skill-icon">◈</div><h3>Tools & Specialized Areas</h3><p>Version control, development environments, and applied technical exploration.</p><div class="chips"><span>Git</span><span>GitHub</span><span>Linux / Bash</span><span>CI/CD</span><span>Solidity / Ethereum</span><span>Scikit-learn</span><span>XGBoost</span><span>KNN</span></div></article>
+      </div>
+    </section>
+
+    <section class="projects section-wrap section-pad" id="projects">
+      <div class="section-heading reveal"><div><div class="section-kicker">03 / SELECTED WORK</div><h2>Projects with <span>purpose.</span></h2></div><p>A selection of concepts and applications across web development, commerce, and machine learning.</p></div>
+      <div class="project-grid">
+        <article class="project-card reveal">
+          <div class="project-art art-tender"><div class="art-top"><span>BLOCKCHAIN / WEB3</span><span>01</span></div><div class="chain-visual"><i></i><i></i><i></i><i></i><b>SECURE<br>PROCUREMENT</b></div><div class="art-foot">TRANSPARENT BY DESIGN</div></div>
+          <div class="project-info"><div class="project-meta"><span>FULL-STACK · SMART CONTRACTS</span><span>01</span></div><h3>Blockchain E-Tender Management</h3><p>A decentralized procurement concept focused on transparent tender tracking, secure workflows, and reducing opportunities for bidding fraud.</p><div class="project-tags"><span>React</span><span>Python</span><span>Blockchain</span><span>ML risk scoring</span></div></div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-art art-jewel"><div class="art-top"><span>COMMERCE / EXPERIENCE</span><span>02</span></div><div class="jewel-shape"><div></div></div><div class="jewel-label">FORM<br>MEETS<br>FUNCTION</div><div class="art-foot">JEWELLERY PORTAL</div></div>
+          <div class="project-info"><div class="project-meta"><span>FULL-STACK · E-COMMERCE</span><span>02</span></div><h3>Transparent Glass Jewellery Portal</h3><p>A luxury storefront concept featuring refined glass-inspired UI, product customization, pricing data, and a structured checkout journey.</p><div class="project-tags"><span>Node.js</span><span>MySQL</span><span>MongoDB</span><span>UI Design</span></div></div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-art art-food"><div class="art-top"><span>REAL-TIME / MOBILE-FIRST</span><span>03</span></div><div class="food-ui"><div class="food-dot"></div><div class="food-lines"><i></i><i></i><i></i></div><div class="food-pill">ORDER IN MOTION ↗</div></div><div class="art-foot">FOOD ORDERING APP</div></div>
+          <div class="project-info"><div class="project-meta"><span>FULL-STACK · REAL-TIME</span><span>03</span></div><h3>Food Ordering & Delivery App</h3><p>A responsive ordering experience with menu discovery, cart state, order updates, and restaurant-facing management concepts.</p><div class="project-tags"><span>React</span><span>Firebase</span><span>MongoDB</span><span>Real-time sync</span></div></div>
+        </article>
+        <article class="project-card reveal">
+          <div class="project-art art-phish"><div class="art-top"><span>SECURITY / MACHINE LEARNING</span><span>04</span></div><div class="shield">◇<span>✓</span></div><div class="scan-lines"></div><div class="art-foot">URL THREAT ANALYSIS</div></div>
+          <div class="project-info"><div class="project-meta"><span>ML · SECURITY PIPELINE</span><span>04</span></div><h3>Phishing Website Detection</h3><p>A detection pipeline examining URL and page characteristics such as lexical patterns, domain signals, SSL validity, and HTML structure.</p><div class="project-tags"><span>Python</span><span>Scikit-learn</span><span>KNN</span><span>XGBoost</span><span>Random Forest</span></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="education section-wrap section-pad" id="education">
+      <div class="section-heading reveal"><div><div class="section-kicker">04 / FOUNDATION</div><h2>Education & <span>background.</span></h2></div><p>A computer science foundation paired with a continued interest in building practical software.</p></div>
+      <div class="timeline">
+        <article class="timeline-item reveal"><div class="timeline-year">2019 — 2023</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">BACHELOR’S DEGREE</span><h3>B.Tech — Computer Science & Engineering</h3><p>Global Institute of Engineering and Technology</p><div class="timeline-note">Data structures · Algorithms · Operating systems · OOP · Distributed networks</div></div><div class="grade">72%</div></article>
+        <article class="timeline-item reveal"><div class="timeline-year">2017 — 2019</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">INTERMEDIATE · MPC</span><h3>Royal Junior College</h3><p>Mathematics, Physics & Chemistry</p></div><div class="grade">90%</div></article>
+        <article class="timeline-item reveal"><div class="timeline-year">2005 — 2017</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">SECONDARY EDUCATION</span><h3>Vidya Vikas High School</h3><p>School education</p></div><div class="grade">93%</div></article>
+      </div>
+      <div class="recognition reveal"><span class="recognition-icon">✳</span><div><span class="small-label">ADDITIONAL HIGHLIGHTS</span><p>Hackathon participation and recognition · Code debugging competition · National art competition background</p></div></div>
+    </section>
+
+    <section class="contact section-wrap" id="contact">
+      <div class="contact-panel reveal"><div class="contact-orb"></div><div class="section-kicker">05 / YOUR NEXT IDEA</div><h2>Let’s build<br><span>something meaningful.</span></h2><p>Have a role, project, or technical idea in mind? I’d be glad to connect.</p><a class="button button-primary" href="mailto:dayakarmanne7997@gmail.com">Email Dayakar <span>↗</span></a><div class="contact-links"><a href="https://linkedin.com/in/dayakarmanne" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/dayakarmanne" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://dayakar.in" target="_blank" rel="noreferrer">Website ↗</a></div></div>
+    </section>
+  </main>
+  <footer class="footer section-wrap"><a class="brand" href="#home"><span class="brand-mark">DM</span><span>Dayakar Manne</span></a><span>Designed to build. Built to evolve.</span><span>© <span id="year"></span> Dayakar Manne</span></footer>
+  
+  <script>
+    // Preloader Dismissal Script
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('pageLoader').classList.add('loaded');
+      }, 400);
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
