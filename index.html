@@ -1,242 +1,867 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#070b14">
-  <meta name="description" content="Dayakar Manne — Software Developer building thoughtful, responsive digital experiences and full-stack applications.">
-  <title>Dayakar Manne — Software Developer</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Professional Preloader Styles */
-    #pageLoader {
-      position: fixed;
-      inset: 0;
-      background: #070b14;
-      z-index: 99999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
-    }
-    #pageLoader.loaded {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-    .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    .loader-brand {
-      font-family: 'DM Mono', monospace;
-      font-size: 1.8rem;
-      font-weight: 500;
-      color: #f8fafc;
-      letter-spacing: 2px;
-      display: flex;
-      align-items: center;
-      gap: 0.2rem;
-    }
-    .loader-brand span {
-      color: #38bdf8;
-    }
-    .loader-spinner {
-      width: 50px;
-      height: 50px;
-      border: 2px solid rgba(56, 189, 248, 0.15);
-      border-top-color: #38bdf8;
-      border-radius: 50%;
-      animation: spinLoader 1s linear infinite;
-    }
-    @keyframes spinLoader {
-      to { transform: rotate(360deg); }
-    }
-    .loader-subtext {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: #94a3b8;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Dayakar Manne | Senior Full Stack Developer & Associate Software Engineer</title>
+    <meta name="description" content="Professional portfolio of Dayakar Manne, Senior Full Stack Developer and Associate Software Engineer at Technodyne Informatics Pvt. Ltd., Hyderabad. Expert in React, NodeJS, Spring Boot, Python, Blockchain, and WebGL." />
+    <meta name="keywords" content="Dayakar Manne, Full Stack Developer, Technodyne Informatics, Hyderabad Software Engineer, React Developer, Node.js, Spring Boot, WebGL, Blockchain Developer" />
+    <meta name="author" content="Dayakar Manne" />
+    <link rel="canonical" href="https://dayakarmanne.dev" />
 
-    /* Profile Image Integration Styles */
-    .hero-profile-container {
-      position: relative;
-      width: 100%;
-      max-width: 320px;
-      aspect-ratio: 4 / 5;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 2px solid rgba(56, 189, 248, 0.4);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.25);
-      background: #0f141c;
-      margin: 0 auto;
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Dayakar Manne | Senior Full Stack Developer" />
+    <meta property="og:description" content="Explore the professional projects, technical skills, and background of Dayakar Manne, software engineer based in Hyderabad." />
+    <meta property="og:image" content="https://res.cloudinary.com/daarlhq52/image/upload/v1775071269/WhatsApp_Image_2026-04-02_at_12.23.56_AM_zavz5o.jpg" />
+    <meta property="og:type" content="website" />
+
+    <!-- Structured Data (Schema.org Person / Software Engineer) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Dayakar Manne",
+      "jobTitle": "Associate Software Engineer & Senior Full Stack Developer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Technodyne Informatics Pvt. Ltd."
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Hyderabad",
+        "addressRegion": "Telangana",
+        "addressCountry": "India"
+      },
+      "email": "dayakarmanne7997@gmail.com",
+      "telephone": "+91-7780709442",
+      "url": "https://dayakarmanne.dev"
     }
-    .hero-profile-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .hero-profile-container:hover img {
-      transform: scale(1.04);
-    }
-    .about-profile-wrap {
-      width: 100%;
-      max-width: 280px;
-      aspect-ratio: 1 / 1;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid rgba(56, 189, 248, 0.5);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-      margin: 2rem auto 0;
-    }
-    .about-profile-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  </style>
+    </script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP for Smooth Animations & Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Tailwind Config Customization -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lightbg: '#ffffff',
+                        cardbg: '#f8fafc',
+                        cardborder: '#e2e8f0',
+                        accentdark: '#0f172a',
+                        accentmuted: '#475569',
+                        brandgold: '#b45309'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+        .pro-card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pro-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.07);
+            transform: translateY(-4px);
+        }
+        /* Multi-directional falling initial states for GSAP */
+        .fall-top { opacity: 0; transform: translateY(-80px); }
+        .fall-bottom { opacity: 0; transform: translateY(80px); }
+        .fall-left { opacity: 0; transform: translateX(-80px); }
+        .fall-right { opacity: 0; transform: translateX(80px); }
+        .fall-scale { opacity: 0; transform: scale(0.8); }
+    </style>
 </head>
-<body>
-  <!-- PRELOADER -->
-  <div id="pageLoader">
-    <div class="loader-content">
-      <div class="loader-brand">Dayakar.<span>in</span></div>
-      <div class="loader-spinner"></div>
-      <div class="loader-subtext">Initializing Portfolio</div>
+<body class="bg-white text-slate-900 antialiased selection:bg-amber-100 selection:text-amber-900">
+
+    <!-- Toast Notification Component -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-xl flex items-center space-x-3">
+        <i data-lucide="check-circle" class="w-5 h-5 text-amber-500"></i>
+        <span id="toast-message" class="text-sm font-medium">Copied successfully!</span>
     </div>
-  </div>
 
-  <div class="progress" id="progress"></div>
-  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Dayakar Manne home"><span class="brand-mark">DM</span><span>Dayakar Manne</span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
-    <nav class="nav" id="nav">
-      <a class="nav-link active" href="#home">Home</a><a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#skills">Skills</a><a class="nav-link" href="#projects">Projects</a>
-      <a class="nav-link" href="#education">Education</a><a class="nav-link" href="#contact">Contact</a>
-    </nav>
-    <a class="header-cta" href="#contact">Let’s talk <span>↗</span></a>
-  </header>
+    <!-- Sticky Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#hero" class="text-xl font-bold tracking-tight flex items-center space-x-2">
+                <span class="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center text-white font-extrabold text-sm shadow-md">DM</span>
+                <span class="text-slate-900 font-extrabold">Dayakar Manne</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-slate-900 transition-colors">About</a>
+                <a href="#skills" class="hover:text-slate-900 transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-slate-900 transition-colors">Projects</a>
+                <a href="#experience" class="hover:text-slate-900 transition-colors">Experience</a>
+                <a href="#achievements" class="hover:text-slate-900 transition-colors">Achievements</a>
+                <a href="#contact" class="hover:text-slate-900 transition-colors">Contact</a>
+            </nav>
 
-  <main>
-    <section class="hero section-wrap" id="home">
-      <div class="hero-copy reveal">
-        <div class="eyebrow"><span class="pulse"></span> SOFTWARE DEVELOPER · OPEN TO OPPORTUNITIES</div>
-        <p class="hello">Hello, I’m</p>
-        <h1>Dayakar<br><span>Manne.</span></h1>
-        <h2>Software Developer <b>×</b> Full-Stack Builder</h2>
-        <p class="hero-intro">I build responsive, reliable digital experiences — from polished interfaces to thoughtful APIs and data-driven applications.</p>
-        <div class="hero-actions">
-          <a class="button button-primary magnetic" href="#projects">Explore projects <span>↗</span></a>
-          <a class="button button-ghost" href="#contact">Get in touch <span>→</span></a>
+            <!-- CTA Button -->
+            <div class="hidden md:block">
+                <a href="#contact" class="px-5 py-2.5 rounded-xl text-xs font-semibold tracking-wide uppercase bg-slate-900 text-white shadow-md hover:bg-slate-800 transition-all">
+                    Let's Connect
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" aria-label="Toggle Menu" class="md:hidden text-slate-700 hover:text-slate-900 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
-        <div class="social-row">
-          <a href="https://github.com/dayakarmanne" target="_blank" rel="noreferrer" aria-label="GitHub">GH <span>↗</span></a>
-          <a href="https://linkedin.com/in/dayakarmanne" target="_blank" rel="noreferrer" aria-label="LinkedIn">in <span>↗</span></a>
-          <a href="https://dayakar.in" target="_blank" rel="noreferrer" aria-label="Website">WEB <span>↗</span></a>
-          <span class="social-note">Hyderabad, India</span>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 right-0 bg-white border-b border-slate-200 px-6 py-6 flex flex-col space-y-4 shadow-xl">
+            <a href="#about" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">About</a>
+            <a href="#skills" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">Skills</a>
+            <a href="#projects" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">Projects</a>
+            <a href="#experience" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">Experience</a>
+            <a href="#achievements" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">Achievements</a>
+            <a href="#contact" class="mobile-link text-slate-700 hover:text-slate-900 font-medium py-1">Contact</a>
+            <a href="#contact" class="mobile-link inline-block text-center mt-2 px-5 py-3 rounded-xl text-xs font-semibold uppercase bg-slate-900 text-white">Let's Connect</a>
         </div>
-      </div>
-      <div class="hero-visual reveal" aria-label="Dayakar Manne profile photograph">
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-        <div class="hero-profile-container">
-          <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1789822405/WhatsApp_Image_2026-09-19_at_6.22.56_PM_qxy6wy.jpg" alt="Dayakar Manne Profile Photo">
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 py-12 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Introduction Text -->
+                <div class="lg:col-span-7 text-left space-y-6">
+                    <div class="fall-top inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold uppercase tracking-wider">
+                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
+                        <span>Associate Software Engineer & Senior Full Stack Developer</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                        <span class="fall-top inline-block">Hi,</span> 
+                        <span class="fall-top inline-block">I'm</span> 
+                        <span class="fall-left inline-block text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-amber-700">Dayakar</span> 
+                        <span class="fall-right inline-block text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-slate-800 to-amber-700">Manne</span>
+                    </h1>
+
+                    <p class="fall-bottom text-lg sm:text-xl text-slate-600 max-w-2xl leading-relaxed">
+                        Building high-performance web applications, robust enterprise backends, and immersive digital solutions at <strong class="text-slate-900 font-semibold">Technodyne Informatics Pvt. Ltd.</strong> in Hyderabad, India.
+                    </p>
+
+                    <!-- Contact Detail Pills -->
+                    <div class="flex flex-wrap items-center gap-3 pt-2">
+                        <a href="tel:+917780709442" class="fall-left pro-card px-4 py-2.5 rounded-xl flex items-center space-x-2 text-sm text-slate-700">
+                            <i data-lucide="phone" class="w-4 h-4 text-amber-600"></i>
+                            <span>+91 7780709442</span>
+                        </a>
+                        <a href="mailto:dayakarmanne7997@gmail.com" class="fall-bottom pro-card px-4 py-2.5 rounded-xl flex items-center space-x-2 text-sm text-slate-700">
+                            <i data-lucide="mail" class="w-4 h-4 text-amber-600"></i>
+                            <span>dayakarmanne7997@gmail.com</span>
+                        </a>
+                        <div class="fall-right pro-card px-4 py-2.5 rounded-xl flex items-center space-x-2 text-sm text-slate-700">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-amber-600"></i>
+                            <span>Hyderabad, India</span>
+                        </div>
+                    </div>
+
+                    <!-- Call To Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+                        <a href="#projects" class="fall-bottom px-8 py-4 rounded-xl font-semibold bg-slate-900 text-white shadow-lg hover:bg-slate-800 transition-all flex items-center justify-center space-x-2">
+                            <span>Explore Projects</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#contact" class="fall-bottom px-8 py-4 rounded-xl font-semibold pro-card text-slate-800 hover:bg-slate-100 transition-all flex items-center justify-center space-x-2">
+                            <span>Get in Touch</span>
+                            <i data-lucide="send" class="w-4 h-4 text-amber-600"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Professional Headshot Image using exact Cloudinary link -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="fall-scale relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 bg-slate-200 rounded-3xl transform rotate-3"></div>
+                        <div class="absolute inset-0 bg-amber-100/50 rounded-3xl transform -rotate-3"></div>
+                        <div class="relative w-full h-full rounded-3xl overflow-hidden border-4 border-white shadow-xl bg-slate-100">
+                            <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1775071269/WhatsApp_Image_2026-04-02_at_12.23.56_AM_zavz5o.jpg" alt="Dayakar Manne Professional Headshot" class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/400x400/e2e8f0/0f172a?text=Dayakar+Manne'">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="tech-float tech-react"><span>⚛</span> React</div>
-        <div class="tech-float tech-js"><span>JS</span> JavaScript</div>
-        <div class="tech-float tech-db"><span>▤</span> Databases</div>
-        <div class="visual-index">01 <span>—</span> 04</div>
-      </div>
-      <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><span class="scroll-line"></span><span>01 / INTRODUCTION</span></div>
     </section>
 
-    <section class="about section-wrap section-pad" id="about">
-      <div class="section-kicker">01 / ABOUT</div>
-      <div class="about-layout">
-        <div class="about-heading reveal"><p class="small-label">A LITTLE ABOUT ME</p><h2>Curious by nature.<br><span>Developer by craft.</span></h2>
-          <div class="about-profile-wrap">
-            <img src="https://res.cloudinary.com/daarlhq52/image/upload/v1789822405/WhatsApp_Image_2026-09-19_at_6.22.56_PM_qxy6wy.jpg" alt="Dayakar Manne Portrait">
-          </div>
+    <!-- About Me Section -->
+    <section id="about" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">About <span class="text-amber-700">Me</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Professional Summary -->
+                <div class="lg:col-span-7 space-y-6 scroll-animate">
+                    <h3 class="fall-left text-2xl font-semibold text-slate-900">Driven by engineering precision & clean system architecture.</h3>
+                    <p class="fall-bottom text-slate-600 leading-relaxed text-base sm:text-lg">
+                        I am an Associate Software Engineer and Senior Full Stack Developer based in Hyderabad, India, currently engineering scalable applications at <strong class="text-slate-900">Technodyne Informatics Pvt. Ltd.</strong> With a solid educational background in Computer Science, I bridge rigorous backend engineering with intuitive, responsive frontend design.
+                    </p>
+                    <p class="fall-bottom text-slate-600 leading-relaxed text-base sm:text-lg">
+                        Beyond enterprise responsibilities, I specialize in building secure decentralized blockchain tenders, AI-assisted security systems, and live client platforms such as <strong class="text-slate-900">Lakshmi Auto Care</strong> and <strong class="text-slate-900">AR Interior Designing</strong>, while preparing upcoming ventures like <strong class="text-slate-900">Cafe Neopolis</strong> and <strong class="text-slate-900">BRC Constructions</strong>.
+                    </p>
+                    
+                    <div class="pt-4 grid grid-cols-2 sm:grid-cols-3 gap-4 scroll-animate">
+                        <div class="fall-bottom pro-card p-4 rounded-xl text-center">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-slate-900">2+</span>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-medium">Years Experience</span>
+                        </div>
+                        <div class="fall-bottom pro-card p-4 rounded-xl text-center">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-slate-900">10+</span>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-medium">Projects Delivered</span>
+                        </div>
+                        <div class="fall-bottom pro-card p-4 rounded-xl text-center col-span-2 sm:col-span-1">
+                            <span class="block text-2xl sm:text-3xl font-extrabold text-slate-900">100%</span>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-medium">Client Satisfaction</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Credentials with exact 72.03% B.Tech -->
+                <div class="lg:col-span-5 scroll-animate">
+                    <div class="fall-right pro-card p-6 sm:p-8 rounded-2xl relative shadow-sm">
+                        <h4 class="text-xl font-bold mb-6 flex items-center space-x-3 text-slate-900">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 text-amber-600"></i>
+                            <span>Academic Background</span>
+                        </h4>
+
+                        <div class="space-y-6 border-l-2 border-slate-300 pl-6 ml-2">
+                            <div class="relative">
+                                <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-amber-600"></span>
+                                <span class="text-xs text-amber-700 font-bold uppercase tracking-wider">2019 – 2023</span>
+                                <h5 class="text-lg font-bold text-slate-900 mt-1">B.Tech in Computer Science & Engineering</h5>
+                                <p class="text-sm text-slate-600">Global Institute of Engineering and Technology (JNTUH)</p>
+                                <span class="inline-block mt-1 px-2.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">Percentage: 72.03% (7.03 CGPA)</span>
+                            </div>
+
+                            <div class="relative">
+                                <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-amber-600"></span>
+                                <span class="text-xs text-amber-700 font-bold uppercase tracking-wider">2017 – 2019</span>
+                                <h5 class="text-lg font-bold text-slate-900 mt-1">Intermediate (MPC)</h5>
+                                <p class="text-sm text-slate-600">State Board Education</p>
+                                <span class="inline-block mt-1 px-2.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">CGPA: 9.4</span>
+                            </div>
+
+                            <div class="relative">
+                                <span class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-amber-600"></span>
+                                <span class="text-xs text-amber-700 font-bold uppercase tracking-wider">2016 – 2017</span>
+                                <h5 class="text-lg font-bold text-slate-900 mt-1">Secondary School Certificate (SSC)</h5>
+                                <p class="text-sm text-slate-600">High School Education</p>
+                                <span class="inline-block mt-1 px-2.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold">CGPA: 9.79</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="about-body reveal">
-          <p class="lead">I’m Dayakar Manne, a software developer who enjoys turning ideas into clean, useful digital products.</p>
-          <p>My interests span frontend engineering, backend services, database design, and interactive user experiences. I care about responsive layouts, readable code, practical problem-solving, and continuously improving the details that make software feel right.</p>
-          <p>Based in Hyderabad, India — open to technical discussions, software development roles, and collaborative projects.</p>
-          <div class="stat-row">
-            <div><strong>01</strong><span>Curiosity-first<br>mindset</span></div>
-            <div><strong>04</strong><span>Featured<br>projects</span></div>
-            <div><strong>∞</strong><span>Ideas to<br>keep building</span></div>
-          </div>
+    </section>
+
+    <!-- Technical Skills Section -->
+    <section id="skills" class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">Technical <span class="text-amber-700">Proficiencies</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
+                <p class="fall-bottom text-slate-600 max-w-xl mx-auto">Core programming languages, backend frameworks, database systems, and modern web tooling.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Core Languages -->
+                <div class="scroll-animate">
+                    <div class="fall-left pro-card p-6 rounded-2xl flex flex-col justify-between h-full">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-amber-700 mb-4">
+                                <i data-lucide="code" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Languages</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Python</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Java</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">JavaScript</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Perl</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500">
+                            Object-oriented programming & scripting.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frontend & WebGL -->
+                <div class="scroll-animate">
+                    <div class="fall-bottom pro-card p-6 rounded-2xl flex flex-col justify-between h-full">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-amber-700 mb-4">
+                                <i data-lucide="layout" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Frontend & WebGL</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">ReactJS</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">HTML5 / CSS3</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Tailwind CSS</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Three.js / WebGL</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500">
+                            Interactive UI & 3D visualization.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend & Databases -->
+                <div class="scroll-animate">
+                    <div class="fall-bottom pro-card p-6 rounded-2xl flex flex-col justify-between h-full">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-amber-700 mb-4">
+                                <i data-lucide="server" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Backend & DB</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">NodeJS</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Spring Boot</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Flask</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">MySQL / MongoDB</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500">
+                            Secure REST APIs & robust storage.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Workflow -->
+                <div class="scroll-animate">
+                    <div class="fall-right pro-card p-6 rounded-2xl flex flex-col justify-between h-full">
+                        <div>
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-amber-700 mb-4">
+                                <i data-lucide="cpu" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 mb-3">Tools & DevOps</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Git & GitHub</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Linux</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Cloudinary</span>
+                                <span class="px-3 py-1.5 rounded-lg bg-white text-slate-700 text-xs font-semibold border border-slate-200 shadow-sm">Cursor & VS Code</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-200 text-xs text-slate-500">
+                            Efficient deployment & tooling.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section class="skills section-wrap section-pad" id="skills">
-      <div class="section-heading reveal"><div><div class="section-kicker">02 / TOOLKIT</div><h2>My technical <span>matrix.</span></h2></div><p>Tools and technologies I use to design, build, connect, and refine software.</p></div>
-      <div class="skill-grid">
-        <article class="skill-card reveal"><div class="skill-number">01</div><div class="skill-icon">⌘</div><h3>Frontend Engineering</h3><p>Responsive interfaces with a focus on usability, consistency, and interaction.</p><div class="chips"><span>HTML5</span><span>CSS3</span><span>JavaScript ES6+</span><span>React</span><span>Tailwind CSS</span><span>Responsive UI</span></div></article>
-        <article class="skill-card reveal"><div class="skill-number">02</div><div class="skill-icon">⟨/⟩</div><h3>Backend & APIs</h3><p>Application logic, service integration, and structured API development.</p><div class="chips"><span>Java</span><span>Python</span><span>Node.js</span><span>Express</span><span>Spring Boot</span><span>REST APIs</span><span>Perl</span></div></article>
-        <article class="skill-card reveal"><div class="skill-number">03</div><div class="skill-icon">▤</div><h3>Databases & Cloud</h3><p>Data modeling and persistence for relational, document, and real-time applications.</p><div class="chips"><span>MongoDB</span><span>Firebase</span><span>Realtime DB</span><span>Firestore</span><span>MySQL</span><span>Schema Design</span></div></article>
-        <article class="skill-card reveal"><div class="skill-number">04</div><div class="skill-icon">◈</div><h3>Tools & Specialized Areas</h3><p>Version control, development environments, and applied technical exploration.</p><div class="chips"><span>Git</span><span>GitHub</span><span>Linux / Bash</span><span>CI/CD</span><span>Solidity / Ethereum</span><span>Scikit-learn</span><span>XGBoost</span><span>KNN</span></div></article>
-      </div>
+    <!-- Projects Section (Freelance, Live, Upcoming, & Previous) -->
+    <section id="projects" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">Featured & <span class="text-amber-700">Client Projects</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
+                <p class="fall-bottom text-slate-600 max-w-xl mx-auto">Explore freelance client deliverables, upcoming ventures, and foundational systems.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Freelance Project 1: Lakshmi Auto Care -->
+                <div class="scroll-animate">
+                    <div class="fall-left pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="car" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold flex items-center space-x-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span>Live Freelance</span>
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">Lakshmi Auto Care</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Engineered a comprehensive garage-based automotive service web platform (<a href="https://lakshmiautocare.in" target="_blank" class="text-amber-700 font-semibold underline hover:text-amber-800">lakshmiautocare.in</a>) featuring seamless online bookings and maintenance tracking.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">ReactJS</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Tailwind CSS</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <a href="https://lakshmiautocare.in" target="_blank" class="w-full py-3 rounded-xl font-semibold bg-slate-900 text-white shadow hover:bg-slate-800 transition-all flex items-center justify-center space-x-2">
+                                <span>Visit lakshmiautocare.in</span>
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Freelance Project 2: AR Interior Designing -->
+                <div class="scroll-animate">
+                    <div class="fall-bottom pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="box" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-semibold flex items-center space-x-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span>Live Freelance</span>
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">AR Interior Designing</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Developed an immersive 3D interactive interior showcase platform (<a href="https://arinteriordesigns.in" target="_blank" class="text-amber-700 font-semibold underline hover:text-amber-800">arinteriordesigns.in</a>) with smooth WebGL rendering and client consultation booking.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Three.js</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">WebGL</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <a href="https://arinteriordesigns.in" target="_blank" class="w-full py-3 rounded-xl font-semibold bg-slate-900 text-white shadow hover:bg-slate-800 transition-all flex items-center justify-center space-x-2">
+                                <span>Visit arinteriordesigns.in</span>
+                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Project 3: Cafe Neopolis & BRC Constructions -->
+                <div class="scroll-animate">
+                    <div class="fall-right pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="coffee" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 text-xs font-semibold">
+                                    Launching Soon
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">Cafe Neopolis & BRC Constructions</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Currently building upcoming web platforms: <strong class="text-slate-900">Cafe Neopolis</strong> (interactive cafe menu & table reservations) and <strong class="text-slate-900">BRC Constructions</strong> (corporate construction showcase).
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">ReactJS</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Tailwind CSS</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <div class="w-full py-3 rounded-xl font-semibold bg-slate-100 text-slate-500 border border-slate-200 text-center text-sm">
+                                In Active Development
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Project 4: Blockchain E-Tender System -->
+                <div class="scroll-animate">
+                    <div class="fall-left pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold">
+                                    Core Project
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">Blockchain E-Tender System</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Engineered a decentralized, transparent electronic tendering platform utilizing blockchain cryptography to prevent tampering and guarantee immutable procurement audits.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Blockchain</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Solidity</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">ReactJS</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <div class="w-full py-2.5 rounded-xl font-medium bg-slate-100 text-slate-600 border border-slate-200 text-center text-xs">
+                                Enterprise Solution
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Project 5: ML Phishing Detection System -->
+                <div class="scroll-animate">
+                    <div class="fall-bottom pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold">
+                                    AI / Security
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">ML Phishing Detection System</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Developed an intelligent machine learning pipeline capable of analyzing URL structures, lexical features, and content heuristics to detect and block phishing websites in real-time.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Python</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Scikit-Learn</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Flask</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <div class="w-full py-2.5 rounded-xl font-medium bg-slate-100 text-slate-600 border border-slate-200 text-center text-xs">
+                                Security Intelligence
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Previous Project 6: Internal HRM System -->
+                <div class="scroll-animate">
+                    <div class="fall-right pro-card rounded-2xl overflow-hidden flex flex-col justify-between group h-full">
+                        <div class="p-8">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 shadow-sm">
+                                    <i data-lucide="users" class="w-6 h-6"></i>
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold">
+                                    Enterprise App
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-amber-700 transition-colors">Internal HRM System</h3>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
+                                Built a robust Human Resource Management web application for tracking employee attendance, performance metrics, payroll calculations, and leave management workflows.
+                            </p>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">Java Spring Boot</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">ReactJS</span>
+                                <span class="text-xs text-slate-700 bg-white border border-slate-200 px-3 py-1.5 rounded-lg font-medium">MySQL</span>
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-0">
+                            <div class="w-full py-2.5 rounded-xl font-medium bg-slate-100 text-slate-600 border border-slate-200 text-center text-xs">
+                                Corporate Dashboard
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </section>
 
-    <section class="projects section-wrap section-pad" id="projects">
-      <div class="section-heading reveal"><div><div class="section-kicker">03 / SELECTED WORK</div><h2>Projects with <span>purpose.</span></h2></div><p>A selection of concepts and applications across web development, commerce, and machine learning.</p></div>
-      <div class="project-grid">
-        <article class="project-card reveal">
-          <div class="project-art art-tender"><div class="art-top"><span>BLOCKCHAIN / WEB3</span><span>01</span></div><div class="chain-visual"><i></i><i></i><i></i><i></i><b>SECURE<br>PROCUREMENT</b></div><div class="art-foot">TRANSPARENT BY DESIGN</div></div>
-          <div class="project-info"><div class="project-meta"><span>FULL-STACK · SMART CONTRACTS</span><span>01</span></div><h3>Blockchain E-Tender Management</h3><p>A decentralized procurement concept focused on transparent tender tracking, secure workflows, and reducing opportunities for bidding fraud.</p><div class="project-tags"><span>React</span><span>Python</span><span>Blockchain</span><span>ML risk scoring</span></div></div>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-art art-jewel"><div class="art-top"><span>COMMERCE / EXPERIENCE</span><span>02</span></div><div class="jewel-shape"><div></div></div><div class="jewel-label">FORM<br>MEETS<br>FUNCTION</div><div class="art-foot">JEWELLERY PORTAL</div></div>
-          <div class="project-info"><div class="project-meta"><span>FULL-STACK · E-COMMERCE</span><span>02</span></div><h3>Transparent Glass Jewellery Portal</h3><p>A luxury storefront concept featuring refined glass-inspired UI, product customization, pricing data, and a structured checkout journey.</p><div class="project-tags"><span>Node.js</span><span>MySQL</span><span>MongoDB</span><span>UI Design</span></div></div>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-art art-food"><div class="art-top"><span>REAL-TIME / MOBILE-FIRST</span><span>03</span></div><div class="food-ui"><div class="food-dot"></div><div class="food-lines"><i></i><i></i><i></i></div><div class="food-pill">ORDER IN MOTION ↗</div></div><div class="art-foot">FOOD ORDERING APP</div></div>
-          <div class="project-info"><div class="project-meta"><span>FULL-STACK · REAL-TIME</span><span>03</span></div><h3>Food Ordering & Delivery App</h3><p>A responsive ordering experience with menu discovery, cart state, order updates, and restaurant-facing management concepts.</p><div class="project-tags"><span>React</span><span>Firebase</span><span>MongoDB</span><span>Real-time sync</span></div></div>
-        </article>
-        <article class="project-card reveal">
-          <div class="project-art art-phish"><div class="art-top"><span>SECURITY / MACHINE LEARNING</span><span>04</span></div><div class="shield">◇<span>✓</span></div><div class="scan-lines"></div><div class="art-foot">URL THREAT ANALYSIS</div></div>
-          <div class="project-info"><div class="project-meta"><span>ML · SECURITY PIPELINE</span><span>04</span></div><h3>Phishing Website Detection</h3><p>A detection pipeline examining URL and page characteristics such as lexical patterns, domain signals, SSL validity, and HTML structure.</p><div class="project-tags"><span>Python</span><span>Scikit-learn</span><span>KNN</span><span>XGBoost</span><span>Random Forest</span></div></div>
-        </article>
-      </div>
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">Professional <span class="text-amber-700">Experience</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
+                <p class="fall-bottom text-slate-600 max-w-xl mx-auto">Driving software excellence in enterprise environments.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto scroll-animate">
+                <div class="fall-bottom pro-card p-8 rounded-2xl relative shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                        <div>
+                            <span class="text-xs text-amber-700 font-bold uppercase tracking-wider">Present</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-1">Associate Software Engineer & Senior Full Stack Developer</h3>
+                            <p class="text-slate-600 font-medium">Technodyne Informatics Pvt. Ltd., Hyderabad</p>
+                        </div>
+                        <div class="mt-4 sm:mt-0">
+                            <span class="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold">Full-Time</span>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 text-slate-600 text-sm sm:text-base">
+                        <li class="flex items-start space-x-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                            <span>Designing and deploying enterprise-grade web applications with robust backend architecture and responsive user interfaces.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                            <span>Optimizing database queries, API response times, and system scalability for mission-critical client systems.</span>
+                        </li>
+                        <li class="flex items-start space-x-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                            <span>Collaborating with cross-functional product and design teams across the full software development lifecycle (SDLC).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="education section-wrap section-pad" id="education">
-      <div class="section-heading reveal"><div><div class="section-kicker">04 / FOUNDATION</div><h2>Education & <span>background.</span></h2></div><p>A computer science foundation paired with a continued interest in building practical software.</p></div>
-      <div class="timeline">
-        <article class="timeline-item reveal"><div class="timeline-year">2019 — 2023</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">BACHELOR’S DEGREE</span><h3>B.Tech — Computer Science & Engineering</h3><p>Global Institute of Engineering and Technology</p><div class="timeline-note">Data structures · Algorithms · Operating systems · OOP · Distributed networks</div></div><div class="grade">72%</div></article>
-        <article class="timeline-item reveal"><div class="timeline-year">2017 — 2019</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">INTERMEDIATE · MPC</span><h3>Royal Junior College</h3><p>Mathematics, Physics & Chemistry</p></div><div class="grade">90%</div></article>
-        <article class="timeline-item reveal"><div class="timeline-year">2005 — 2017</div><div class="timeline-marker"></div><div class="timeline-content"><span class="small-label">SECONDARY EDUCATION</span><h3>Vidya Vikas High School</h3><p>School education</p></div><div class="grade">93%</div></article>
-      </div>
-      <div class="recognition reveal"><span class="recognition-icon">✳</span><div><span class="small-label">ADDITIONAL HIGHLIGHTS</span><p>Hackathon participation and recognition · Code debugging competition · National art competition background</p></div></div>
+    <!-- Achievements & Honors Section -->
+    <section id="achievements" class="py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">Achievements & <span class="text-amber-700">Honors</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
+                <p class="fall-bottom text-slate-600 max-w-xl mx-auto">Recognitions spanning national records, competitive arts, chess, and coding hackathons.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Achievement 1 -->
+                <div class="scroll-animate">
+                    <div class="fall-left pro-card p-6 rounded-2xl flex items-start space-x-4 h-full">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center text-amber-700 shadow-sm">
+                            <i data-lucide="award" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-1">India Book of Records Holder</h3>
+                            <p class="text-sm text-slate-600">Recognized nationally for exceptional portrait drawings and intricate visual artwork.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement 2 -->
+                <div class="scroll-animate">
+                    <div class="fall-bottom pro-card p-6 rounded-2xl flex items-start space-x-4 h-full">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center text-amber-700 shadow-sm">
+                            <i data-lucide="palette" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-1">ORSA National-Level Drawing Winner</h3>
+                            <p class="text-sm text-slate-600">Secured top honors at the national level for creative artistry and expression.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement 3 -->
+                <div class="scroll-animate">
+                    <div class="fall-right pro-card p-6 rounded-2xl flex items-start space-x-4 h-full">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center text-amber-700 shadow-sm">
+                            <i data-lucide="star" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-1">Best Student of the Year</h3>
+                            <p class="text-sm text-slate-600">Awarded by the Judicial Department, Ranga Reddy District for overall academic and co-curricular excellence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement 4 -->
+                <div class="scroll-animate">
+                    <div class="fall-left pro-card p-6 rounded-2xl flex items-start space-x-4 h-full">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center text-amber-700 shadow-sm">
+                            <i data-lucide="trophy" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-1">5-Time Consecutive Gold Medalist</h3>
+                            <p class="text-sm text-slate-600">Mandal-Level Professional Chess Champion in SGF Telangana tournaments.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement 5 -->
+                <div class="scroll-animate md:col-span-2 lg:col-span-2">
+                    <div class="fall-bottom pro-card p-6 rounded-2xl flex items-start space-x-4 h-full">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex-shrink-0 flex items-center justify-center text-amber-700 shadow-sm">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-slate-900 mb-1">GIET Hackathon & Code Debugging Winner</h3>
+                            <p class="text-sm text-slate-600">Demonstrated rapid problem-solving, algorithmic precision, and software engineering prowess under competitive time constraints.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="contact section-wrap" id="contact">
-      <div class="contact-panel reveal"><div class="contact-orb"></div><div class="section-kicker">05 / YOUR NEXT IDEA</div><h2>Let’s build<br><span>something meaningful.</span></h2><p>Have a role, project, or technical idea in mind? I’d be glad to connect.</p><a class="button button-primary" href="mailto:dayakarmanne7997@gmail.com">Email Dayakar <span>↗</span></a><div class="contact-links"><a href="https://linkedin.com/in/dayakarmanne" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/dayakarmanne" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://dayakar.in" target="_blank" rel="noreferrer">Website ↗</a></div></div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 scroll-animate">
+                <h2 class="fall-top text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 mb-4">Let's Build <span class="text-amber-700">Together</span></h2>
+                <div class="fall-scale w-16 h-1 bg-amber-600 mx-auto rounded-full mb-4"></div>
+                <p class="fall-bottom text-slate-600 max-w-xl mx-auto">Have a project, freelance inquiry, or opportunity? Reach out directly or send a message below.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl mx-auto">
+                <!-- Contact Info Cards -->
+                <div class="lg:col-span-5 space-y-6 scroll-animate">
+                    <div class="fall-left pro-card p-6 rounded-2xl flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 flex-shrink-0 shadow-sm">
+                            <i data-lucide="phone" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Phone Number</span>
+                            <a href="tel:+917780709442" class="block text-base font-bold text-slate-900 hover:text-amber-700 transition-colors">+91 7780709442</a>
+                        </div>
+                    </div>
+
+                    <div class="fall-left pro-card p-6 rounded-2xl flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 flex-shrink-0 shadow-sm">
+                            <i data-lucide="mail" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email Address</span>
+                            <a href="mailto:dayakarmanne7997@gmail.com" class="block text-base font-bold text-slate-900 hover:text-amber-700 transition-colors break-all">dayakarmanne7997@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div class="fall-left pro-card p-6 rounded-2xl flex items-center space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-amber-700 flex-shrink-0 shadow-sm">
+                            <i data-lucide="map-pin" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Location</span>
+                            <span class="block text-base font-bold text-slate-900">Hyderabad, India</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 scroll-animate">
+                    <form id="contact-form" class="fall-right pro-card p-8 rounded-2xl space-y-6 shadow-sm" onsubmit="handleFormSubmit(event)">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Your Name</label>
+                            <input type="text" required class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-amber-600 transition-colors" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Your Email</label>
+                            <input type="email" required class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-amber-600 transition-colors" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Message</label>
+                            <textarea rows="4" required class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:border-amber-600 transition-colors resize-none" placeholder="Let's discuss your next project..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 rounded-xl font-semibold bg-slate-900 text-white shadow-lg hover:bg-slate-800 transition-all flex items-center justify-center space-x-2">
+                            <span>Send Message</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
-  <footer class="footer section-wrap"><a class="brand" href="#home"><span class="brand-mark">DM</span><span>Dayakar Manne</span></a><span>Designed to build. Built to evolve.</span><span>© <span id="year"></span> Dayakar Manne</span></footer>
-  
-  <script>
-    // Preloader Dismissal Script
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        document.getElementById('pageLoader').classList.add('loaded');
-      }, 400);
-    });
-  </script>
-  <script src="script.js"></script>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-slate-50 border-t border-slate-200 text-center text-sm text-slate-600">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 Dayakar Manne. All rights reserved.</p>
+            <div class="flex items-center space-x-6">
+                <a href="#hero" class="hover:text-slate-900 transition-colors">Back to Top</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Execution & Animation Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Register GSAP ScrollTrigger Plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Multi-Directional GSAP Entrance & Scroll Animations
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hero section elements entrance
+            gsap.utils.toArray('.fall-top').forEach(el => {
+                if (!el.closest('#hero')) return;
+                gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.2 });
+            });
+            gsap.utils.toArray('.fall-left').forEach(el => {
+                if (!el.closest('#hero')) return;
+                gsap.to(el, { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.3 });
+            });
+            gsap.utils.toArray('.fall-right').forEach(el => {
+                if (!el.closest('#hero')) return;
+                gsap.to(el, { opacity: 1, x: 0, duration: 1, ease: 'power3.out', delay: 0.4 });
+            });
+            gsap.utils.toArray('.fall-bottom').forEach(el => {
+                if (!el.closest('#hero')) return;
+                gsap.to(el, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.5 });
+            });
+            gsap.utils.toArray('.fall-scale').forEach(el => {
+                if (!el.closest('#hero')) return;
+                gsap.to(el, { opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.4 });
+            });
+
+            // ScrollTrigger animations for all other sections (multi-directional falling from top, bottom, left, right, scale)
+            const scrollSections = document.querySelectorAll('.scroll-animate');
+            scrollSections.forEach((section) => {
+                const targets = section.querySelectorAll('.fall-top, .fall-bottom, .fall-left, .fall-right, .fall-scale');
+                targets.forEach(el => {
+                    let vars = { opacity: 1, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: section, start: 'top 85%' } };
+                    if (el.classList.contains('fall-top')) vars.y = 0;
+                    if (el.classList.contains('fall-bottom')) vars.y = 0;
+                    if (el.classList.contains('fall-left')) vars.x = 0;
+                    if (el.classList.contains('fall-right')) vars.x = 0;
+                    if (el.classList.contains('fall-scale')) vars.scale = 1;
+                    gsap.to(el, vars);
+                });
+            });
+        });
+
+        // Toast Notification Handler
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent successfully! Thank you for reaching out.');
+            document.getElementById('contact-form').reset();
+        }
+    </script>
 </body>
 </html>
